@@ -1,8 +1,45 @@
+/* Custom Fonts - Must be before all other rules */
+@import url("https://fonts.cdnfonts.com/css/longsile");
+@import url("https://fonts.cdnfonts.com/css/thegoodmonolith");
+@import url("https://fonts.cdnfonts.com/css/pp-neue-montreal");
+@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap");
+
+/* Local Fonts */
+@font-face {
+  font-family: 'Reckoner';
+  src: url('/reckoner/Reckoner.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Reckoner';
+  src: url('/reckoner/Reckoner_Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sunday Ballerina';
+  src: url('/sunday_ballerina/Sunday Ballerina/Sunday Ballerina.ttf') format('truetype'),
+       url('/sunday_ballerina/Sunday Ballerina/Sunday Ballerina.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @import "tailwindcss";
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --text: #ffcc00;
+  --bg: #000000;
+  --highlight-bg: #ffcc00;
+  --type-line-opacity: 0.05;
 }
 
 @theme inline {
@@ -10,6 +47,15 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
+
+/* Custom font families for Tailwind utilities */
+.font-reckoner {
+  font-family: 'Reckoner', sans-serif;
+}
+
+.font-sunday-ballerina {
+  font-family: 'Sunday Ballerina', sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,4 +69,904 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Scrolling Text Styles */
+.text-item {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.text-item::before {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  opacity: 0.3;
+  filter: blur(20px);
+  transform: scale(1.1);
+}
+
+/* Metallic Card Styles with Grid Pattern - Black Matte Shiny */
+.card-metallic {
+  --card-bg: rgba(255, 255, 255, 0.02);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --card-shadow-1: rgba(0, 0, 0, 0.4);
+  --card-shadow-1-y: 4px;
+  --card-shadow-1-blur: 10px;
+  --card-shadow-2: rgba(0, 0, 0, 0.6);
+  --card-shadow-2-y: 12px;
+  --card-shadow-2-blur: 24px;
+  --card-label: #FFFFFF;
+  --card-icon: #FFFFFF;
+  --card-icon-bg: rgba(255, 255, 255, 0.05);
+  --card-icon-border: rgba(255, 255, 255, 0.15);
+  --card-shine-opacity: 0.2;
+  --card-shine-gradient: conic-gradient(from 205deg at 50% 50%, rgba(212, 175, 55, 0) 0deg, #D4AF37 30deg, rgba(212, 175, 55, 0.3) 280deg, rgba(212, 175, 55, 0) 360deg);
+  --card-line: #2A2A2A;
+  --card-tile: rgba(212, 175, 55, 0.1);
+  --card-hover-border: rgba(212, 175, 55, 0.3);
+  --card-hover-shadow-1: rgba(0, 0, 0, 0.5);
+  --card-hover-shadow-1-y: 6px;
+  --card-hover-shadow-1-blur: 14px;
+  --card-hover-shadow-2: rgba(212, 175, 55, 0.2);
+  --card-hover-shadow-2-y: 20px;
+  --card-hover-shadow-2-blur: 35px;
+  --card-hover-icon: #D4AF37;
+  --card-hover-icon-bg: rgba(212, 175, 55, 0.15);
+  --card-hover-icon-border: rgba(212, 175, 55, 0.4);
+
+  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
+  box-shadow: 0px var(--card-shadow-1-y) var(--card-shadow-1-blur) var(--card-shadow-1),
+              0px var(--card-shadow-2-y) var(--card-shadow-2-blur) var(--card-shadow-2),
+              0 0 0 1px var(--card-border),
+              inset 0 1px 0 rgba(255, 255, 255, 0.08),
+              inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+}
+
+.card-metallic:hover {
+  transform: translateY(-2px);
+}
+
+.card-metallic::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 15px;
+  background-color: var(--card-bg);
+}
+
+.card-metallic .icon {
+  z-index: 2;
+  position: relative;
+  display: table;
+  padding: 8px;
+}
+
+.card-metallic .icon::after {
+  display: none;
+}
+
+.card-metallic .icon svg {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 24px;
+  height: 24px;
+  transform: translateZ(0);
+  color: var(--card-icon);
+  transition: color 0.25s;
+}
+
+.card-metallic h4 {
+  z-index: 2;
+  position: relative;
+  margin: 12px 0 4px 0;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 2;
+  color: var(--card-label);
+}
+
+.card-metallic p {
+  z-index: 2;
+  position: relative;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #A1A1AA;
+}
+
+.card-metallic .shine {
+  border-radius: inherit;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.card-metallic .shine::before {
+  content: '';
+  width: 150%;
+  padding-bottom: 150%;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  bottom: 55%;
+  filter: blur(35px);
+  opacity: var(--card-shine-opacity);
+  transform: translateX(-50%);
+  background-image: var(--card-shine-gradient);
+}
+
+.card-metallic .background {
+  border-radius: inherit;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  -webkit-mask-image: radial-gradient(circle at 60% 5%, black 0%, black 15%, transparent 60%);
+  mask-image: radial-gradient(circle at 60% 5%, black 0%, black 15%, transparent 60%);
+}
+
+.card-metallic .background .tiles {
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.card-metallic .background .tile {
+  position: absolute;
+  background-color: var(--card-tile);
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+  opacity: 0;
+}
+
+.card-metallic .background .tile.tile-4,
+.card-metallic .background .tile.tile-6,
+.card-metallic .background .tile.tile-10 {
+  animation-delay: -2s;
+}
+
+.card-metallic .background .tile.tile-3,
+.card-metallic .background .tile.tile-5,
+.card-metallic .background .tile.tile-8 {
+  animation-delay: -4s;
+}
+
+.card-metallic .background .tile.tile-2,
+.card-metallic .background .tile.tile-9 {
+  animation-delay: -6s;
+}
+
+.card-metallic .background .tile.tile-1 {
+  top: 0;
+  left: 0;
+  height: 10%;
+  width: 22.5%;
+}
+
+.card-metallic .background .tile.tile-2 {
+  top: 0;
+  left: 22.5%;
+  height: 10%;
+  width: 27.5%;
+}
+
+.card-metallic .background .tile.tile-3 {
+  top: 0;
+  left: 50%;
+  height: 10%;
+  width: 27.5%;
+}
+
+.card-metallic .background .tile.tile-4 {
+  top: 0;
+  left: 77.5%;
+  height: 10%;
+  width: 22.5%;
+}
+
+.card-metallic .background .tile.tile-5 {
+  top: 10%;
+  left: 0;
+  height: 22.5%;
+  width: 22.5%;
+}
+
+.card-metallic .background .tile.tile-6 {
+  top: 10%;
+  left: 22.5%;
+  height: 22.5%;
+  width: 27.5%;
+}
+
+.card-metallic .background .tile.tile-7 {
+  top: 10%;
+  left: 50%;
+  height: 22.5%;
+  width: 27.5%;
+}
+
+.card-metallic .background .tile.tile-8 {
+  top: 10%;
+  left: 77.5%;
+  height: 22.5%;
+  width: 22.5%;
+}
+
+.card-metallic .background .tile.tile-9 {
+  top: 32.5%;
+  left: 50%;
+  height: 22.5%;
+  width: 27.5%;
+}
+
+.card-metallic .background .tile.tile-10 {
+  top: 32.5%;
+  left: 77.5%;
+  height: 22.5%;
+  width: 22.5%;
+}
+
+@keyframes tile {
+  0%, 12.5%, 100% {
+    opacity: 1;
+  }
+  25%, 82.5% {
+    opacity: 0;
+  }
+}
+
+.card-metallic .background .line {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+
+.card-metallic .background .line::before,
+.card-metallic .background .line::after {
+  content: '';
+  position: absolute;
+  background-color: var(--card-line);
+  transition: transform 0.35s;
+}
+
+.card-metallic .background .line::before {
+  left: 0;
+  right: 0;
+  height: 1px;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+}
+
+.card-metallic .background .line::after {
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  transform-origin: 50% 0;
+  transform: scaleY(0);
+}
+
+.card-metallic .background .line.line-1::before {
+  top: 10%;
+}
+
+.card-metallic .background .line.line-1::after {
+  left: 22.5%;
+}
+
+.card-metallic .background .line.line-1::before,
+.card-metallic .background .line.line-1::after {
+  transition-delay: 0.3s;
+}
+
+.card-metallic .background .line.line-2::before {
+  top: 32.5%;
+}
+
+.card-metallic .background .line.line-2::after {
+  left: 50%;
+}
+
+.card-metallic .background .line.line-2::before,
+.card-metallic .background .line.line-2::after {
+  transition-delay: 0.15s;
+}
+
+.card-metallic .background .line.line-3::before {
+  top: 55%;
+}
+
+.card-metallic .background .line.line-3::after {
+  right: 22.5%;
+}
+
+.card-metallic:hover {
+  box-shadow: 0px 3px 6px var(--card-hover-shadow-1),
+              0px var(--card-hover-shadow-2-y) var(--card-hover-shadow-2-blur) var(--card-hover-shadow-2),
+              0 0 0 1px var(--card-hover-border);
+}
+
+.card-metallic:hover .icon::after {
+  display: none;
+}
+
+.card-metallic:hover .icon svg {
+  color: var(--card-hover-icon);
+}
+
+.card-metallic:hover .shine {
+  opacity: 1;
+  transition-duration: 0.5s;
+  transition-delay: 0s;
+}
+
+.card-metallic:hover .background .tiles {
+  opacity: 1;
+  transition-delay: 0.25s;
+}
+
+.card-metallic:hover .background .tiles .tile {
+  animation-name: tile;
+}
+
+.card-metallic:hover .background .line {
+  opacity: 1;
+  transition-duration: 0.15s;
+}
+
+.card-metallic:hover .background .line::before {
+  transform: scaleX(1);
+}
+
+.card-metallic:hover .background .line::after {
+  transform: scaleY(1);
+}
+
+.card-metallic:hover .background .line.line-1::before,
+.card-metallic:hover .background .line.line-1::after {
+  transition-delay: 0s;
+}
+
+.card-metallic:hover .background .line.line-2::before,
+.card-metallic:hover .background .line.line-2::after {
+  transition-delay: 0.15s;
+}
+
+.card-metallic:hover .background .line.line-3::before,
+.card-metallic:hover .background .line.line-3::after {
+  transition-delay: 0.3s;
+}
+
+/* Card Pattern Backgrounds - Converted from SCSS */
+:root {
+  --pattern-c0: #ff9528;
+  --pattern-c1: #3f7ea6;
+  --sqrt2: 1.41421356237;
+}
+
+/* Pattern 1 - Diagonal Stripes with Joints */
+.pattern-1 {
+  position: relative;
+  overflow: hidden;
+}
+
+.pattern-1::before,
+.pattern-1::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  --d: 4em;
+  --o: calc(50% - 0.5 * var(--d));
+  --strip-stop: calc(2 * var(--d) / 14.1);
+  --strip-end: var(--pattern-c0);
+  --strip-f: 0.25;
+  --strip-stop-0: calc(var(--strip-f) * var(--strip-stop));
+  --strip-stop-1: calc(var(--strip-stop) - var(--strip-stop-0));
+  --strip-list: var(--strip-end) 0, var(--strip-end) var(--strip-stop-0), transparent 0, transparent var(--strip-stop-1), var(--strip-end) 0, var(--strip-end) var(--strip-stop);
+  background: repeating-linear-gradient(45deg, var(--strip-list));
+  mask: 
+    linear-gradient(var(--pattern-c0), var(--pattern-c0)),
+    linear-gradient(135deg, var(--pattern-c0) 25%, transparent 0),
+    linear-gradient(135deg, var(--pattern-c0) 25%, transparent 0),
+    linear-gradient(-135deg, var(--pattern-c0) 25%, transparent 0),
+    linear-gradient(-135deg, var(--pattern-c0) 25%, transparent 0);
+  mask-position: 50%, var(--o) var(--o);
+  mask-size: var(--d) var(--d);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.3;
+}
+
+.pattern-1::after {
+  opacity: 0.2;
+}
+
+/* Pattern 2 - Crossed Diagonal Lines */
+.pattern-2 {
+  position: relative;
+  overflow: hidden;
+}
+
+.pattern-2::before,
+.pattern-2::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  --d: 4em;
+  --strip-end: var(--pattern-c0);
+  --strip-f: 0.25;
+  --strip-stop: calc(0.25 * var(--d));
+  --strip-stop-0: calc(var(--strip-f) * var(--strip-stop));
+  --strip-stop-1: calc(var(--strip-stop) - var(--strip-stop-0));
+  --strip-list: var(--strip-end) 0, var(--strip-end) var(--strip-stop-0), transparent 0, transparent var(--strip-stop-1), var(--strip-end) 0, var(--strip-end) var(--strip-stop);
+  background: linear-gradient(45deg, var(--strip-list)) 50% / calc(0.25 * var(--d)) calc(0.25 * var(--d));
+  mask: 
+    linear-gradient(-135deg, var(--pattern-c0) 25%, transparent 0),
+    linear-gradient(135deg, var(--pattern-c0) 25%, transparent 0);
+  mask-position: 50%, 50% calc(50% - 0.5 * var(--d));
+  mask-size: var(--d) var(--d);
+  opacity: 0.3;
+}
+
+.pattern-2::after {
+  opacity: 0.2;
+}
+
+/* Pattern 3 - Radial Circles */
+.pattern-3 {
+  position: relative;
+  overflow: hidden;
+}
+
+.pattern-3::before,
+.pattern-3::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  --d: 5em;
+  --strip-stop: calc(0.1 * var(--d));
+  --strip-end: var(--pattern-c0);
+  --strip-f: 0.25;
+  --strip-stop-0: calc(var(--strip-f) * var(--strip-stop));
+  --strip-stop-1: calc(var(--strip-stop) - var(--strip-stop-0));
+  --strip-list: var(--strip-end) 0, var(--strip-end) var(--strip-stop-0), transparent 0, transparent var(--strip-stop-1), var(--strip-end) 0, var(--strip-end) var(--strip-stop);
+  background: repeating-linear-gradient(45deg, var(--strip-list));
+  --o: calc(50% - 0.5 * var(--d));
+  --joint-stop: calc(0.275 * var(--d));
+  --joint-list: var(--pattern-c0) var(--joint-stop), transparent 0;
+  mask: radial-gradient(var(--joint-list));
+  mask-position: var(--o) var(--o);
+  mask-size: var(--d) var(--d);
+  opacity: 0.3;
+}
+
+.pattern-3::after {
+  --o: calc(50% - 0 * 0.5 * var(--d));
+  opacity: 0.2;
+}
+
+/* Pattern 4 - Diagonal Gradient with Stripes */
+.pattern-4 {
+  position: relative;
+  overflow: hidden;
+}
+
+.pattern-4::before,
+.pattern-4::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(225deg, var(--pattern-c1), transparent);
+  --strip-stop: 1em;
+  --strip-f: 0.125;
+  --strip-stop-0: calc(var(--strip-f) * var(--strip-stop));
+  --strip-stop-1: calc(var(--strip-stop) - var(--strip-stop-0));
+  --strip-list: var(--pattern-c0) 0, var(--pattern-c0) var(--strip-stop-0), transparent 0, transparent var(--strip-stop-1), var(--pattern-c0) 0, var(--pattern-c0) var(--strip-stop);
+  mask: 
+    linear-gradient(var(--pattern-c0), var(--pattern-c0)),
+    repeating-linear-gradient(-45deg, var(--strip-list));
+  mask-composite: exclude;
+  opacity: 0.3;
+}
+
+.pattern-4::after {
+  background: linear-gradient(45deg, var(--pattern-c1), transparent);
+  --strip-f: 0.375;
+  opacity: 0.2;
+}
+
+/* Pattern 5 - Dotted Circles */
+.pattern-5 {
+  position: relative;
+  overflow: hidden;
+}
+
+.pattern-5::before,
+.pattern-5::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  --d: 1em;
+  --o0: calc(50% + 0.25 * var(--d));
+  --o1: calc(50% - 0.25 * var(--d));
+  background: 
+    radial-gradient(circle, var(--pattern-c0) 35%, transparent 37%) var(--o0) var(--o0),
+    radial-gradient(circle, var(--pattern-c1) 19%, transparent 21%) var(--o1) var(--o1);
+  background-size: var(--d) var(--d);
+  --strip-stop: calc(4 * var(--d));
+  --strip-f: 0.25;
+  --strip-stop-0: calc(var(--strip-f) * var(--strip-stop));
+  --strip-stop-1: calc(var(--strip-stop) - var(--strip-stop-0));
+  --strip-list: var(--pattern-c0) 0, var(--pattern-c0) var(--strip-stop-0), transparent 0, transparent var(--strip-stop-1), var(--pattern-c0) 0, var(--pattern-c0) var(--strip-stop);
+  --o: calc(0 * var(--d));
+  mask: 
+    repeating-linear-gradient(var(--strip-list)),
+    repeating-linear-gradient(90deg, var(--strip-list));
+  mask-position: 0 var(--o), var(--o);
+  mask-composite: exclude;
+  opacity: 0.3;
+}
+
+.pattern-5::after {
+  --o: calc(1 * var(--d));
+  opacity: 0.2;
+}
+
+/* Pattern 6 - Hexagonal Pattern */
+.pattern-6 {
+  position: relative;
+  overflow: hidden;
+}
+
+.pattern-6::before,
+.pattern-6::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  --strip-stop: 0.5em;
+  --strip-end: var(--pattern-c1);
+  --strip-mid: var(--pattern-c0);
+  --strip-f: 0.25;
+  --strip-stop-0: calc(var(--strip-f) * var(--strip-stop));
+  --strip-stop-1: calc(var(--strip-stop) - var(--strip-stop-0));
+  --strip-list: var(--strip-end) 0, var(--strip-end) var(--strip-stop-0), var(--strip-mid) 0, var(--strip-mid) var(--strip-stop-1), var(--strip-end) 0, var(--strip-end) var(--strip-stop);
+  background: repeating-linear-gradient(0deg, var(--strip-list)) 50% calc(50% - 0.1875 * var(--strip-stop));
+  --ang: calc(0 * 60deg);
+  filter: blur(1px);
+  --joint-list: var(--pattern-c0) 0deg 60deg, transparent 0deg 180deg;
+  mask: repeating-conic-gradient(from calc((0 + 0.5) * 60deg), var(--joint-list));
+  opacity: 0.3;
+}
+
+.pattern-6::after {
+  --ang: calc(1 * 60deg);
+  opacity: 0.2;
+}
+
+/* Pattern 7 - Triangular Mesh */
+.pattern-7 {
+  position: relative;
+  overflow: hidden;
+}
+
+.pattern-7::before,
+.pattern-7::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  --strip-end: transparent;
+  --strip-mid: var(--pattern-c0);
+  --strip-stop: 10px;
+  --strip-f: 0.4;
+  --strip-stop-0: calc(var(--strip-f) * var(--strip-stop));
+  --strip-stop-1: calc(var(--strip-stop) - var(--strip-stop-0));
+  --strip-list: var(--strip-end) 0, var(--strip-end) var(--strip-stop-0), var(--strip-mid) 0, var(--strip-mid) var(--strip-stop-1), var(--strip-end) 0, var(--strip-end) var(--strip-stop);
+  background: 
+    repeating-linear-gradient(var(--strip-list)),
+    repeating-linear-gradient(60deg, var(--strip-list)),
+    repeating-linear-gradient(-60deg, var(--strip-list));
+  --joint-list: var(--pattern-c0) 0%, transparent 50%;
+  mask: conic-gradient(from calc((0 - 0.75) * 180deg), transparent, var(--pattern-c0), transparent 50%);
+  opacity: 0.3;
+}
+
+.pattern-7::after {
+  mask: conic-gradient(from calc((1 - 0.75) * 180deg), transparent, var(--pattern-c0), transparent 50%);
+  opacity: 0.2;
+}
+
+/* Pattern 8 - Layered Stripes */
+.pattern-8 {
+  position: relative;
+  overflow: hidden;
+  --strip-end: var(--pattern-c0);
+  --strip-mid: var(--pattern-c1);
+  --strip-stop: 0.5em;
+  --strip-f: 0.25;
+  --strip-stop-0: calc(var(--strip-f) * var(--strip-stop));
+  --strip-stop-1: calc(var(--strip-stop) - var(--strip-stop-0));
+  --strip-list: var(--strip-end) 0, var(--strip-end) var(--strip-stop-0), var(--strip-mid) 0, var(--strip-mid) var(--strip-stop-1), var(--strip-end) 0, var(--strip-end) var(--strip-stop);
+  background: repeating-linear-gradient(45deg, var(--strip-list));
+}
+
+.pattern-8::before,
+.pattern-8::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  --strip-stop: 4em;
+  background: linear-gradient(0deg, var(--pattern-c0), transparent) 50% calc(50% - 0.327 * var(--strip-stop)) / 100% calc(0.5 * var(--strip-stop));
+  --strip-f: 0.25;
+  --strip-stop-0: calc(var(--strip-f) * var(--strip-stop));
+  --strip-stop-1: calc(var(--strip-stop) - var(--strip-stop-0));
+  --strip-list: var(--pattern-c0) 0, var(--pattern-c0) var(--strip-stop-0), transparent 0, transparent var(--strip-stop-1), var(--pattern-c0) 0, var(--pattern-c0) var(--strip-stop);
+  mask:
+    repeating-linear-gradient(var(--strip-list)),
+    repeating-linear-gradient(60deg, var(--strip-list)),
+    repeating-linear-gradient(-60deg, var(--strip-list));
+  mask-position: 50% calc(50% - 0.075 * var(--strip-stop)), 50%, 50%;
+  mask-size: 100% 200%, 100%, 100%;
+  mask-composite: intersect;
+  opacity: 0.3;
+}
+
+.pattern-8::after {
+  background: linear-gradient(180deg, var(--pattern-c0), transparent);
+  mask-composite: subtract, add;
+  opacity: 0.2;
+}
+
+/* Pattern 9 - Grid Pattern */
+.pattern-9 {
+  position: relative;
+  overflow: hidden;
+}
+
+.pattern-9::before,
+.pattern-9::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  --d: 5em;
+  --strip-end: var(--pattern-c0);
+  --strip-stop: 0.375em;
+  --strip-f: 0.25;
+  --strip-stop-0: calc(var(--strip-f) * var(--strip-stop));
+  --strip-stop-1: calc(var(--strip-stop) - var(--strip-stop-0));
+  --strip-list: var(--strip-end) 0, var(--strip-end) var(--strip-stop-0), transparent 0, transparent var(--strip-stop-1), var(--strip-end) 0, var(--strip-end) var(--strip-stop);
+  background: repeating-linear-gradient(0deg, var(--strip-list));
+  --m-list: var(--strip-list);
+  mask:
+    linear-gradient(var(--pattern-c0), var(--pattern-c0)),
+    repeating-linear-gradient(45deg, var(--m-list)),
+    repeating-linear-gradient(-45deg, var(--m-list));
+  mask-composite: exclude;
+  opacity: 0.3;
+}
+
+.pattern-9::after {
+  background: repeating-linear-gradient(90deg, var(--strip-list));
+  opacity: 0.2;
+}
+
+/* Pattern 10 - Diamond Grid */
+.pattern-10 {
+  position: relative;
+  overflow: hidden;
+  --l: 4em;
+  --d: calc(var(--l) * var(--sqrt2));
+  --strip-end: var(--pattern-c0);
+  --strip-stop: 4px;
+  --strip-f: 0.25;
+  --strip-stop-0: calc(var(--strip-f) * var(--strip-stop));
+  --strip-stop-1: calc(var(--strip-stop) - var(--strip-stop-0));
+  --strip-list: var(--strip-end) 0, var(--strip-end) var(--strip-stop-0), transparent 0, transparent var(--strip-stop-1), var(--strip-end) 0, var(--strip-end) var(--strip-stop);
+  background: repeating-linear-gradient(var(--strip-list)) var(--pattern-c1);
+}
+
+.pattern-10::before,
+.pattern-10::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(-90deg, var(--pattern-c0), transparent) 50% / calc(0.5 * var(--d));
+  --strip-stop: var(--l);
+  --strip-f: 0.25;
+  --strip-stop-0: calc(var(--strip-f) * var(--strip-stop));
+  --strip-stop-1: calc(var(--strip-stop) - var(--strip-stop-0));
+  --strip-list: var(--strip-end) 0, var(--strip-end) var(--strip-stop-0), transparent 0, transparent var(--strip-stop-1), var(--strip-end) 0, var(--strip-end) var(--strip-stop);
+  --o: calc(0 * -0.5 * var(--d));
+  mask:
+    repeating-linear-gradient(45deg, var(--strip-list)),
+    repeating-linear-gradient(-45deg, var(--strip-list));
+  mask-position: var(--o);
+  mask-size: calc(100% + 0.5 * var(--d));
+  mask-composite: intersect;
+  opacity: 0.3;
+}
+
+.pattern-10::after {
+  background: linear-gradient(90deg, var(--pattern-c0), transparent);
+  --o: calc(1 * -0.5 * var(--d));
+  opacity: 0.2;
+}
+
+/* Pattern 11 - Circular Pattern */
+.pattern-11 {
+  position: relative;
+  overflow: hidden;
+}
+
+.pattern-11::before,
+.pattern-11::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  --d: 5em;
+  --l: calc(0.05 * var(--d) * var(--sqrt2));
+  background: linear-gradient(-90deg, var(--pattern-c1), var(--pattern-c0)) calc(50% - 0.5 * var(--d)) / var(--d) var(--d);
+  --joint-stop: 25%;
+  --joint-list: var(--pattern-c0) var(--joint-stop), transparent 0;
+  mask:
+    radial-gradient(var(--joint-list)),
+    linear-gradient(135deg, var(--joint-list)),
+    linear-gradient(-135deg, var(--joint-list));
+  mask-position: 50%, 50%, 50% calc(50% - 0.5 * var(--d));
+  mask-size: var(--l) var(--l), var(--d) var(--d), var(--d) var(--d);
+  mask-composite: intersect;
+  opacity: 0.3;
+}
+
+.pattern-11::after {
+  background: linear-gradient(90deg, var(--pattern-c1), var(--pattern-c0));
+  opacity: 0.2;
+}
+
+/* Pattern 12 - Conic Gradient */
+.pattern-12 {
+  position: relative;
+  overflow: hidden;
+  --d: 3em;
+  background: repeating-conic-gradient(var(--pattern-c0), var(--pattern-c1), var(--pattern-c0) 5%) 50% / calc(2 * var(--d)) var(--d);
+}
+
+.pattern-12::before,
+.pattern-12::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  --strip-end: var(--pattern-c0);
+  --strip-stop: 4px;
+  --strip-f: 0.25;
+  --strip-stop-0: calc(var(--strip-f) * var(--strip-stop));
+  --strip-stop-1: calc(var(--strip-stop) - var(--strip-stop-0));
+  --strip-list: var(--strip-end) 0, var(--strip-end) var(--strip-stop-0), transparent 0, transparent var(--strip-stop-1), var(--strip-end) 0, var(--strip-end) var(--strip-stop);
+  background: repeating-linear-gradient(45deg, var(--strip-list));
+  --joint-list: var(--pattern-c0) 25%, transparent 0;
+  mask:
+    linear-gradient(var(--pattern-c0), var(--pattern-c0)),
+    linear-gradient(115deg, var(--joint-list)),
+    linear-gradient(115deg, var(--joint-list)),
+    linear-gradient(245deg, var(--joint-list)),
+    linear-gradient(245deg, var(--joint-list));
+  mask-position: 0 0, calc(0.25 * var(--d)) calc(-0.5 * var(--d));
+  mask-size: calc(0.5 * var(--d)) var(--d);
+  mask-composite: exclude;
+  opacity: 0.3;
+}
+
+.pattern-12::after {
+  opacity: 0.2;
+}
+
+/* Pattern 13 - Hexagonal Mesh */
+.pattern-13 {
+  position: relative;
+  overflow: hidden;
+}
+
+.pattern-13::before,
+.pattern-13::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  --strip-end: transparent;
+  --strip-mid: var(--pattern-c0);
+  --strip-stop: 10px;
+  --strip-f: 0.4;
+  --strip-stop-0: calc(var(--strip-f) * var(--strip-stop));
+  --strip-stop-1: calc(var(--strip-stop) - var(--strip-stop-0));
+  --strip-list: var(--strip-end) 0, var(--strip-end) var(--strip-stop-0), var(--strip-mid) 0, var(--strip-mid) var(--strip-stop-1), var(--strip-end) 0, var(--strip-end) var(--strip-stop);
+  background:
+    repeating-linear-gradient(var(--strip-list)),
+    repeating-linear-gradient(60deg, var(--strip-list)),
+    repeating-linear-gradient(-60deg, var(--strip-list));
+  --ang: 60deg;
+  --c: var(--pattern-c0);
+  --notc: transparent;
+  mask: linear-gradient(var(--ang), var(--c) 50%, var(--notc) 0);
+  opacity: 0.3;
+}
+
+.pattern-13::after {
+  opacity: 0.2;
+}
+
+/* Pattern 14 - Conic Spiral */
+.pattern-14 {
+  position: relative;
+  overflow: hidden;
+  --d: 2em;
+  background: conic-gradient(var(--pattern-c0), var(--pattern-c1), var(--pattern-c0));
+}
+
+.pattern-14::before,
+.pattern-14::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(0deg, var(--pattern-c0), var(--pattern-c1), var(--pattern-c0));
+  --joint-list: var(--pattern-c0) 25%, transparent 0;
+  mask: linear-gradient(90deg, var(--joint-list));
+  mask-position: calc(50% + (0 - 0.25) * 0.5 * var(--d));
+  mask-size: var(--d);
+  opacity: 0.3;
+}
+
+.pattern-14::after {
+  background: linear-gradient(180deg, var(--pattern-c0), var(--pattern-c1), var(--pattern-c0));
+  mask-position: calc(50% + (1 - 0.25) * 0.5 * var(--d));
+  opacity: 0.2;
 }
