@@ -20,106 +20,106 @@ interface ImpactItem {
 const IMPACT_ITEMS: ImpactItem[] = [
   {
     id: 1,
-    category: "BLOCKCHAIN",
-    title: "Decentralized Solutions",
-    description: "Building scalable blockchain infrastructure and decentralized applications that power the future of web3. From smart contracts to DeFi platforms, we create secure and transparent solutions.",
-    image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=1200&h=1600&fit=crop&q=80",
-    imageSecondary: "https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=1200&h=1600&fit=crop&q=80",
+    category: "CONCEPT",
+    title: "From Idea to Roadmap",
+    description: "You have conviction; you need clarity. We help shape the idea, validate what matters, and turn it into a roadmap that actually gets built.",
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&h=1600&fit=crop&q=80",
+    imageSecondary: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&h=1600&fit=crop&q=80",
     stats: [
-      { value: "100+", label: "Projects Deployed", color: "yellow" },
-      { value: "99.9%", label: "Uptime", color: "black" },
-      { value: "$2.5B", label: "TVL", color: "white" },
+      { value: "Clarity", label: "First", color: "yellow" },
+      { value: "Roadmap", label: "Then Ship", color: "black" },
+      { value: "Focus", label: "Always", color: "white" },
     ],
   },
   {
     id: 2,
-    category: "AI & TECHNOLOGY",
-    title: "Intelligent Automation",
-    description: "Leveraging cutting-edge AI and machine learning to transform business operations. We develop intelligent systems that automate processes, analyze data, and drive innovation.",
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=1600&fit=crop&q=80",
-    imageSecondary: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&h=1600&fit=crop&q=80",
+    category: "FUNDRAISE",
+    title: "The Story That Wins the Room",
+    description: "Investors back stories they believe. We help you find yours—narrative, deck, and the sharp message that makes the round close.",
+    image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&h=1600&fit=crop&q=80",
+    imageSecondary: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=1600&fit=crop&q=80",
     stats: [
-      { value: "10TB", label: "Daily Processing", color: "yellow" },
-      { value: "94%", label: "Accuracy Rate", color: "black" },
-      { value: "500+", label: "Clients", color: "white" },
+      { value: "Story", label: "Clear", color: "yellow" },
+      { value: "Deck", label: "Ready", color: "black" },
+      { value: "Room", label: "Won", color: "white" },
     ],
   },
   {
     id: 3,
-    category: "DIGITAL TRANSFORMATION",
-    title: "Modern Solutions",
-    description: "Transforming traditional businesses into digital-first organizations. We help companies adapt, innovate, and thrive in the digital age with comprehensive transformation strategies.",
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&h=1600&fit=crop&q=80",
+    category: "TECHNICAL",
+    title: "Built to Scale",
+    description: "The right stack and architecture choices early save years later. We advise on what to build, how to build it, and how to make it last.",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&h=1600&fit=crop&q=80",
     imageSecondary: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&h=1600&fit=crop&q=80",
     stats: [
-      { value: "340%", label: "ROI Achieved", color: "yellow" },
-      { value: "$2.4B", label: "Impact Value", color: "black" },
-      { value: "18", label: "Months", color: "white" },
+      { value: "Stack", label: "Right", color: "yellow" },
+      { value: "Scale", label: "Ready", color: "black" },
+      { value: "Diligence", label: "Covered", color: "white" },
     ],
   },
   {
     id: 4,
-    category: "INNOVATION",
-    title: "Future-Ready Products",
-    description: "Creating innovative products that solve real-world problems. From concept to launch, we turn visionary ideas into market-ready solutions that create lasting impact.",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=1600&fit=crop&q=80",
-    imageSecondary: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=1600&fit=crop&q=80",
+    category: "PRODUCT",
+    title: "Focus Beats Noise",
+    description: "Too much product, too little signal. We help teams cut scope, prioritise ruthlessly, and ship what actually moves the needle.",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=1600&fit=crop&q=80",
+    imageSecondary: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=1600&fit=crop&q=80",
     stats: [
-      { value: "500+", label: "Products Launched", color: "yellow" },
-      { value: "18", label: "Months-to-Market", color: "black" },
-      { value: "95%", label: "Success Rate", color: "white" },
+      { value: "Scope", label: "Sharp", color: "yellow" },
+      { value: "Priorities", label: "Set", color: "black" },
+      { value: "Ship", label: "Faster", color: "white" },
     ],
   },
   {
     id: 5,
-    category: "STRATEGY",
-    title: "Strategic Planning",
-    description: "Developing comprehensive strategies that align with business goals. We analyze markets, identify opportunities, and create actionable plans for sustainable growth.",
-    image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&h=1600&fit=crop&q=80",
-    imageSecondary: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=1600&fit=crop&q=80",
+    category: "MARKET",
+    title: "Own Your Category",
+    description: "Strong product isn't enough if nobody knows how to place you. We help frame the category, sharpen the message, and own the conversation.",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=1600&fit=crop&q=80",
+    imageSecondary: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&h=1600&fit=crop&q=80",
     stats: [
-      { value: "85%", label: "Success Rate", color: "yellow" },
-      { value: "200+", label: "Strategies", color: "black" },
-      { value: "50+", label: "Industries", color: "white" },
+      { value: "Category", label: "Clear", color: "yellow" },
+      { value: "Message", label: "Sharp", color: "black" },
+      { value: "GTM", label: "Ready", color: "white" },
     ],
   },
   {
     id: 6,
-    category: "EXECUTION",
-    title: "Delivering Results",
-    description: "Turning strategies into reality with flawless execution. Our team ensures projects are delivered on time, within budget, and exceed expectations.",
+    category: "LAUNCH",
+    title: "Launch & Iterate",
+    description: "Getting from idea to first ship is the hardest step. We work alongside teams to build, launch, and learn—without the usual drift.",
     image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&h=1600&fit=crop&q=80",
     imageSecondary: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=1600&fit=crop&q=80",
     stats: [
-      { value: "98%", label: "Time Delivery", color: "yellow" },
-      { value: "60%", label: "Cost Reduction", color: "black" },
-      { value: "1000+", label: "Projects", color: "white" },
+      { value: "First", label: "Ship", color: "yellow" },
+      { value: "Learn", label: "Fast", color: "black" },
+      { value: "Repeat", label: "Smarter", color: "white" },
     ],
   },
   {
     id: 7,
-    category: "GROWTH",
-    title: "Scaling Success",
-    description: "Helping businesses scale efficiently and sustainably. We provide the tools, processes, and insights needed to grow from startup to industry leader.",
-    image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1200&h=1600&fit=crop&q=80",
-    imageSecondary: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&h=1600&fit=crop&q=80",
+    category: "SYSTEMS",
+    title: "Systems That Last",
+    description: "Architecture decisions compound. We help you get reliability, scale, and cost right so the system grows with you instead of against you.",
+    image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=1200&h=1600&fit=crop&q=80",
+    imageSecondary: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&h=1600&fit=crop&q=80",
     stats: [
-      { value: "300%", label: "Growth Rate", color: "yellow" },
-      { value: "50+", label: "Companies Scaled", color: "black" },
-      { value: "$1B+", label: "Revenue", color: "white" },
+      { value: "Reliable", label: "Built", color: "yellow" },
+      { value: "Scale", label: "Designed", color: "black" },
+      { value: "Cost", label: "Smart", color: "white" },
     ],
   },
   {
     id: 8,
     category: "IMPACT",
-    title: "Creating Value",
-    description: "Measuring and maximizing the impact of every initiative. We ensure that our solutions create meaningful value for businesses, communities, and stakeholders.",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=1600&fit=crop&q=80",
+    title: "Where Ideas Meet Impact",
+    description: "We help founders turn conviction into clarity, and clarity into something that ships. Story, systems, product, market—aligned and moving.",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=1600&fit=crop&q=80",
     imageSecondary: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&h=1600&fit=crop&q=80",
     stats: [
-      { value: "$5B+", label: "Value Created", color: "yellow" },
-      { value: "1M+", label: "Lives Impacted", color: "black" },
-      { value: "100+", label: "Countries", color: "white" },
+      { value: "Build", label: "Fund", color: "yellow" },
+      { value: "Position", label: "Ship", color: "black" },
+      { value: "Impact", label: "Real", color: "white" },
     ],
   },
 ];
@@ -138,7 +138,7 @@ export default function ImpactNarratives() {
 
     const ctx = gsap.context(() => {
       const totalItems = IMPACT_ITEMS.length;
-      const scrollPerItem = 200; // Viewport heights per item
+      const scrollPerItem = 380; // More vh per item = slower, smoother scroll
       const totalScroll = totalItems * scrollPerItem;
 
       // Set initial states for desktop category headings (mobile uses inline styles)
@@ -165,14 +165,14 @@ export default function ImpactNarratives() {
         });
       });
 
-      // Optimized smooth scroll - no lag
+      // Slow, smooth scroll - more scroll distance and higher scrub for user-friendly pacing
       ScrollTrigger.create({
         trigger: pinContainerRef.current,
         start: "top top",
         end: `+=${totalScroll}vh`,
         pin: true,
         pinSpacing: true,
-        scrub: 1, // Smooth scroll without lag
+        scrub: 2,
         anticipatePin: 1,
         onUpdate: (self) => {
           const progress = self.progress;
@@ -224,7 +224,7 @@ export default function ImpactNarratives() {
             }
           });
 
-          // Animate images and tags - optimized and synchronized
+          // Images and tags: instant show for active (so value/label appear with keyword), instant hide for others
           imagesRef.current.forEach((img, index) => {
             if (!img) return;
             
@@ -234,61 +234,19 @@ export default function ImpactNarratives() {
             const itemTags = img.querySelectorAll('[data-tag]');
             
             if (isActive) {
-              gsap.to(img, {
-                opacity: 1,
-                scale: 1,
-                duration: 0.4,
-                ease: "power2.out",
-              });
-              gsap.to(itemTags, {
-                opacity: 1,
-                scale: 1,
-                duration: 0.4,
-                ease: "power2.out",
-                delay: 0.1,
-              });
+              gsap.set(img, { opacity: 1, scale: 1, zIndex: 2 });
+              gsap.set(itemTags, { opacity: 1, scale: 1 });
             } else if (isNext && itemProgress > 0.7) {
               const fadeProgress = (itemProgress - 0.7) / 0.3;
-              gsap.to(img, {
-                opacity: fadeProgress,
-                scale: 0.95 + (fadeProgress * 0.05),
-                duration: 0.2,
-                ease: "power2.out",
-              });
-              gsap.to(itemTags, {
-                opacity: fadeProgress,
-                scale: 0.95 + (fadeProgress * 0.05),
-                duration: 0.2,
-                ease: "power2.out",
-              });
+              gsap.set(img, { opacity: fadeProgress, scale: 0.95 + (fadeProgress * 0.05), zIndex: 1 });
+              gsap.set(itemTags, { opacity: fadeProgress, scale: 0.95 + (fadeProgress * 0.05) });
             } else if (isPrev && itemProgress < 0.3) {
               const fadeProgress = 1 - (itemProgress / 0.3);
-              gsap.to(img, {
-                opacity: fadeProgress,
-                scale: 1 - (fadeProgress * 0.05),
-                duration: 0.2,
-                ease: "power2.in",
-              });
-              gsap.to(itemTags, {
-                opacity: fadeProgress,
-                scale: 1 - (fadeProgress * 0.05),
-                duration: 0.2,
-                ease: "power2.in",
-              });
+              gsap.set(img, { opacity: fadeProgress, scale: 1 - (fadeProgress * 0.05), zIndex: 1 });
+              gsap.set(itemTags, { opacity: fadeProgress, scale: 1 - (fadeProgress * 0.05) });
             } else {
-              gsap.to(img, {
-                opacity: 0,
-                scale: 0.95,
-                duration: 0.25,
-                ease: "power2.in",
-                zIndex: 1,
-              });
-              gsap.to(itemTags, {
-                opacity: 0,
-                scale: 0.95,
-                duration: 0.25,
-                ease: "power2.in",
-              });
+              gsap.set(img, { opacity: 0, scale: 0.95, zIndex: 1 });
+              gsap.set(itemTags, { opacity: 0, scale: 0.95 });
             }
           });
         },

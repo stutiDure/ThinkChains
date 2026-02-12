@@ -1,17 +1,37 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Full quote as words for word-by-word scroll reveal (no icons/images)
+// Grouped to prevent awkward line breaks on mobile
+const ABOUT_WORDS = [
+  "ThinkChains", "partners", "with", "founders", "and", "teams", "to", "turn", 
+  "ideas", "into", "reality.", "We", "help", "you",
+  "craft", "your", "investor", "narrative,", "make",  
+  "sound", "technical", "and", "product", "decisions", "&", "position", "your", "company", 
+  "in", "the", "market.", "From", "concept", "to", "launch.",
+];
+
+const FILL_STYLE = {
+  WebkitBackgroundClip: "text",
+  backgroundClip: "text",
+  backgroundColor: "#3f434a",
+  backgroundImage: "linear-gradient(135deg, #f3f4f6 50%, #3f434a 60%)",
+  backgroundPosition: "0 0",
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "0% 200%",
+  color: "transparent",
+  willChange: "background-size",
+} as const;
+
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const fillTextRef = useRef<HTMLSpanElement>(null);
-  const iconRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const wordRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -20,91 +40,57 @@ export default function About() {
       const aboutSection = sectionRef.current;
       if (!aboutSection) return;
 
-      // Text fill animation on scroll - only animation we keep (NO PINNING, NO SLIDE)
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      
-      if (fillTextRef.current) {
-        if (prefersReducedMotion) {
-          // For reduced motion, show text immediately
-          gsap.set(fillTextRef.current, {
-            backgroundSize: "200% 200%",
-          });
-        } else {
-          // Animate background size on scroll - NO PINNING, just scroll-based animation
-          const textFillAnimation = gsap.to(fillTextRef.current, {
-            backgroundSize: "200% 200%",
-            ease: "none",
-            paused: true,
-          });
+      const words = wordRefs.current.filter(Boolean) as HTMLElement[];
+      if (words.length === 0) return;
 
-          // Text fill animation with pinning - section stays fixed while animation runs
-          ScrollTrigger.create({
-            trigger: aboutSection,
-            start: "top top",
-            end: "+=550vh", // Slower: more scroll = each part of text revealed with proper timing
-            scrub: 1, // Smoother coupling to scroll so user sees what's happening
-            pin: true,
-            pinSpacing: true,
-            animation: textFillAnimation,
-            invalidateOnRefresh: true,
-            id: "text-fill",
-          });
-        }
+      if (prefersReducedMotion) {
+        words.forEach((el) => {
+          gsap.set(el, { backgroundSize: "200% 200%" });
+        });
+      } else {
+        // One word reveals per segment of scroll for clarity and slowness
+        const scrollVh = 1800; // increased for slower, smoother animation
+        const timeline = gsap.timeline({ paused: true });
+        words.forEach((el, i) => {
+          timeline.to(
+            el,
+            {
+              backgroundSize: "200% 200%",
+              ease: "power1.inOut",
+              duration: 1.5,
+            },
+            i * 0.8
+          );
+        });
+
+        ScrollTrigger.create({
+          trigger: aboutSection,
+          start: "top top",
+          end: `+=${scrollVh}vh`,
+          scrub: 2.5,
+          pin: true,
+          pinSpacing: true,
+          animation: timeline,
+          invalidateOnRefresh: true,
+          id: "about-word-fill",
+        });
       }
 
-      // Animate emoji icons with subtle bounce effects
-      iconRefs.current.forEach((iconRef, index) => {
-        if (iconRef) {
-          gsap.to(iconRef, {
-            y: -5,
-            scale: 1.1,
-            duration: 2 + index * 0.3,
-            repeat: -1,
-            ease: "power1.inOut",
-            yoyo: true,
-          });
-
-          // Add hover animation
-          iconRef.addEventListener('mouseenter', () => {
-            gsap.to(iconRef, {
-              scale: 1.3,
-              rotation: "+=15",
-              duration: 0.3,
-              ease: "back.out(1.7)",
-            });
-          });
-
-          iconRef.addEventListener('mouseleave', () => {
-            gsap.to(iconRef, {
-              scale: 1.1,
-              rotation: 0,
-              duration: 0.3,
-              ease: "power2.out",
-            });
-          });
-        }
-      });
-
-      // Handle resize
       const handleResize = () => ScrollTrigger.refresh();
-      window.addEventListener('resize', handleResize);
-
-      return () => {
-        window.removeEventListener('resize', handleResize);
-      };
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
     }, sectionRef);
 
-    return () => {
-      ctx.revert();
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen bg-black text-white overflow-visible"
+      className="relative min-h-screen bg-black text-white overflow-x-hidden"
     >
-      {/* Professional SVG Background Pattern */}
+      {/* Background pattern */}
       <div className="absolute inset-0 pointer-events-none z-0 opacity-60">
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -126,110 +112,63 @@ export default function About() {
         </svg>
       </div>
 
-      <div className="relative min-h-screen w-full flex items-center justify-center py-10 md:py-12 lg:py-16">
-        <div 
+      {/* Content centered in viewport (h-screen) */}
+      <div className="relative w-full h-screen flex items-center justify-center">
+        <div
           ref={contentRef}
-          className="relative z-10 max-w-[95%] sm:max-w-[90%] md:max-w-[85%] lg:max-w-[80%] xl:max-w-[75%] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 text-center w-full"
+          className="relative z-10 w-full max-w-full min-w-0 mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 text-center flex flex-col items-center justify-center"
         >
-          <div className="w-full about-fill-wrapper">
-            <p 
-              className="about-fill-text fill-text js-fill leading-[1.5] m-0 tracking-[-0.01em]"
+          {/* Big opening quote */}
+          <div
+            className="absolute left-0 sm:left-2 md:left-4 lg:left-6 top-1/3 sm:top-1/2 -translate-y-1/2 text-white/15 sm:text-white/20 select-none pointer-events-none"
+            style={{
+              fontFamily: '"Georgia", "Times New Roman", serif',
+              fontSize: "clamp(3rem, 12vw, 18rem)",
+              lineHeight: 1,
+              fontWeight: 700,
+            }}
+            aria-hidden
+          >
+            &ldquo;
+          </div>
+
+          {/* Big closing quote */}
+          <div
+            className="absolute right-0 sm:right-2 md:right-4 lg:right-6 top-2/3 sm:top-1/2 -translate-y-1/2 text-white/15 sm:text-white/20 select-none pointer-events-none"
+            style={{
+              fontFamily: '"Georgia", "Times New Roman", serif',
+              fontSize: "clamp(3rem, 12vw, 18rem)",
+              lineHeight: 1,
+              fontWeight: 700,
+            }}
+            aria-hidden
+          >
+            &rdquo;
+          </div>
+
+          <div className="w-full max-w-[92%] sm:max-w-[90%] md:max-w-[85%] lg:max-w-[80%] xl:max-w-[75%] min-w-0 about-fill-wrapper overflow-hidden px-2 sm:px-0">
+            <p
+              className="about-fill-text fill-text js-fill leading-[1.5] sm:leading-[1.6] m-0 tracking-[-0.01em] max-w-full"
               style={{
-                fontSize: "clamp(24px, 4.5vw, 56px)",
-                textWrap: "pretty",
+                fontSize: "clamp(18px, 4.5vw, 56px)",
+                textWrap: "balance",
                 fontFamily: '"Syne", system-ui, sans-serif',
                 fontWeight: 700,
               }}
             >
-              <span
-                ref={fillTextRef}
-                className="inline"
-                style={{
-                  WebkitBackgroundClip: "text",
-                  backgroundClip: "text",
-                  backgroundColor: "#3f434a",
-                  backgroundImage: "linear-gradient(135deg, #f3f4f6 50%, #3f434a 60%)",
-                  backgroundPosition: "0 0",
-                  backgroundRepeat: "no-repeat",
-                  backgroundSize: "0% 200%",
-                  color: "transparent",
-                  willChange: "background-size",
-                }}
-              >
-                Majority of people can
-                <span className="inline-block mx-2 md:mx-3"></span>
-                <span 
-                  ref={(el) => { iconRefs.current[0] = el; }}
-                  className="inline-flex items-center justify-center mx-2 md:mx-3 align-middle"
-                  style={{ fontSize: "1.4em", color: "#ffcc00", WebkitBackgroundClip: "unset", backgroundClip: "unset", filter: "grayscale(0%) brightness(1.2)" }}
-                >
-                  ⚡
+              {ABOUT_WORDS.map((word, i) => (
+                <span key={i} className="inline-block mr-[0.3em] sm:mr-[0.35em]">
+                  <span
+                    ref={(el) => {
+                      wordRefs.current[i] = el;
+                    }}
+                    className="inline"
+                    style={FILL_STYLE}
+                  >
+                    {word}
+                  </span>
                 </span>
-                run a 100 meter dash,
-                <span className="inline-block mx-2 md:mx-3"></span>
-                <div className="relative inline-block w-20 h-14 md:w-28 md:h-18 lg:w-36 lg:h-24 mx-3 md:mx-4 lg:mx-6 my-2 md:my-3 align-middle overflow-hidden rounded-sm shadow-lg">
-                  <Image 
-                    src="/about1.jpeg" 
-                    alt="ThinkChains about - innovation and execution"
-                    fill
-                    className="object-cover"
-                    style={{ filter: "brightness(1.1) contrast(1.1)" }}
-                    sizes="(max-width: 768px) 80px, (max-width: 1024px) 112px, 144px"
-                  />
-                </div>
-                but only a dozen can
-                <span className="inline-block mx-2 md:mx-3"></span>
-                <span 
-                  ref={(el) => { iconRefs.current[1] = el; }}
-                  className="inline-flex items-center justify-center mx-2 md:mx-3 align-middle"
-                  style={{ fontSize: "1.4em", color: "#ffffff", WebkitBackgroundClip: "unset", backgroundClip: "unset", filter: "grayscale(100%) brightness(1.5)" }}
-                >
-                  🏆
-                </span>
-                do it in under 9.8
-                <span className="inline-block mx-2 md:mx-3"></span>
-                <div className="relative inline-block w-20 h-14 md:w-28 md:h-18 lg:w-36 lg:h-24 mx-3 md:mx-4 lg:mx-6 my-2 md:my-3 align-middle overflow-hidden rounded-sm shadow-lg">
-                  <Image 
-                    src="/about.jpeg" 
-                    alt="ThinkChains about - leadership and performance"
-                    fill
-                    className="object-cover"
-                    style={{ filter: "brightness(1.1) contrast(1.1)" }}
-                    sizes="(max-width: 768px) 80px, (max-width: 1024px) 112px, 144px"
-                  />
-                </div>
-                seconds.
-                <span className="inline-block mx-2 md:mx-3"></span>
-                <span 
-                  ref={(el) => { iconRefs.current[2] = el; }}
-                  className="inline-flex items-center justify-center mx-2 md:mx-3 align-middle"
-                  style={{ fontSize: "1.4em", color: "#ffcc00", WebkitBackgroundClip: "unset", backgroundClip: "unset", filter: "grayscale(0%) brightness(1.2)" }}
-                >
-                  ✨
-                </span>
-                We are that dozen.
-                <span className="inline-block mx-2 md:mx-3"></span>
-                <span 
-                  ref={(el) => { iconRefs.current[3] = el; }}
-                  className="inline-flex items-center justify-center mx-2 md:mx-3 align-middle"
-                  style={{ fontSize: "1.4em", color: "#ffffff", WebkitBackgroundClip: "unset", backgroundClip: "unset", filter: "grayscale(100%) brightness(1.5)" }}
-                >
-                  ⭐
-                </span>
-                Building the future through innovation,
-                <span className="inline-block mx-2 md:mx-3"></span>
-                <div className="relative inline-block w-20 h-14 md:w-28 md:h-18 lg:w-36 lg:h-24 mx-3 md:mx-4 lg:mx-6 my-2 md:my-3 align-middle overflow-hidden rounded-sm shadow-lg">
-                  <Image 
-                    src="/about2.jpeg" 
-                    alt="ThinkChains about - building the future"
-                    fill
-                    className="object-cover"
-                    style={{ filter: "brightness(1.1) contrast(1.1)" }}
-                    sizes="(max-width: 768px) 80px, (max-width: 1024px) 112px, 144px"
-                  />
-                </div>
-                one breakthrough at a time.
-              </span>
+              ))}
             </p>
           </div>
         </div>
@@ -238,13 +177,36 @@ export default function About() {
       <div className="absolute inset-0 pointer-events-none z-0 mt-72">
         <div className="absolute bottom-0 left-0 w-full overflow-hidden">
           <h2 className="text-[22vw] sm:text-[18vw] md:text-[20vw] lg:text-[22vw] xl:text-[12vw] font-reckoner font-bold text-white/10 leading-none">
-            ABOUT*WORK*ABOUT*WORK
+            ABOUT*BUILD*SHIP*ABOUT
           </h2>
         </div>
       </div>
 
-      {/* Responsive text for 1000px–1700px so content fits in h-screen */}
       <style dangerouslySetInnerHTML={{ __html: `
+        @media (max-width: 380px) {
+          .about-fill-text {
+            font-size: 22px !important;
+            line-height: 1.7 !important;
+          }
+        }
+        @media (min-width: 381px) and (max-width: 480px) {
+          .about-fill-text {
+            font-size: 26px !important;
+            line-height: 1.65 !important;
+          }
+        }
+        @media (min-width: 481px) and (max-width: 640px) {
+          .about-fill-text {
+            font-size: 30px !important;
+            line-height: 1.6 !important;
+          }
+        }
+        @media (min-width: 641px) and (max-width: 768px) {
+          .about-fill-text {
+            font-size: 32px !important;
+            line-height: 1.55 !important;
+          }
+        }
         @media (min-width: 1000px) and (max-width: 1700px) {
           .about-fill-text {
             font-size: clamp(22px, 2.6vw, 38px) !important;

@@ -7,11 +7,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const textItems = [
-  "THINK CHAINS",
-  "Choreograph Pixels",
-  "Every Scroll A Keystroke",
-  "Transform Ideas",
-  "THINK CHAINS",
+  "THINKCHAINS",
+  "Ideation to Execution",
+  "Fundraising Narrative",
+  "Technical Advisory",
+  "THINKCHAINS",
 ];
 
 export default function ScrollingText() {

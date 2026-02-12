@@ -7,64 +7,64 @@ import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const workProjects = [
+const caseStudies = [
   {
     id: 1,
-    title: 'Blockchain Infrastructure',
-    category: 'Enterprise Solution',
-    description: 'Architected a scalable blockchain infrastructure serving 100+ enterprises with 99.9% uptime and sub-second transaction finality.',
-    metrics: ['100+ Enterprises', '99.9% Uptime', '$2.5B TVL'],
-    image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&h=1000&fit=crop',
+    title: 'From Concept to First Ship',
+    category: 'Launch',
+    description: 'A B2B SaaS team had conviction but no clear path. We shaped the idea, defined the roadmap, and got the first version out the door in 14 weeks—without the usual drift.',
+    metrics: ['14 Weeks', 'MVP Shipped', 'Clear Roadmap'],
+    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=1000&fit=crop',
     color: '#DC2626',
   },
   {
     id: 2,
-    title: 'AI-Powered Analytics',
-    category: 'Data Intelligence',
-    description: 'Built predictive analytics platform processing 10TB daily, delivering real-time insights with 94% accuracy for Fortune 500 clients.',
-    metrics: ['10TB Daily', '94% Accuracy', '500+ Clients'],
+    title: 'The Pitch That Closed the Round',
+    category: 'Fundraise',
+    description: 'Series A was stalling. We rewrote the narrative, rebuilt the deck, and sharpened the story they told in the room. The round closed fully subscribed.',
+    metrics: ['Series A Closed', 'Investor-Ready', 'Story & Deck'],
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=1000&fit=crop',
     color: '#FFFFFF',
   },
   {
     id: 3,
-    title: 'Digital Transformation',
-    category: 'Strategy & Execution',
-    description: 'Led complete digital overhaul for global conglomerate, achieving 340% ROI and $2.4B impact within 18 months.',
-    metrics: ['340% ROI', '18 Months', '$2.4B Impact'],
+    title: 'Built to Scale',
+    category: 'Technical',
+    description: 'A fintech was growing faster than its systems. We advised on stack, architecture, and where to invest next. Infra cost dropped 40%; reliability went up.',
+    metrics: ['40% Cost Down', 'Scale Ready', 'Architecture'],
     image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=1000&fit=crop',
     color: '#DC2626',
   },
   {
     id: 4,
-    title: 'Web3 Ecosystem',
-    category: 'Decentralized Platform',
-    description: 'Launched cross-chain DeFi platform connecting 50+ protocols, enabling seamless asset transfers across multiple blockchains.',
-    metrics: ['50+ Protocols', 'Multi-Chain', '$500M Volume'],
+    title: 'Less Is More',
+    category: 'Product',
+    description: 'Their product did everything and said nothing. We helped them cut scope, prioritise ruthlessly, and ship what actually moved the needle. Releases got faster; message got clearer.',
+    metrics: ['Scope Cut', 'Faster Releases', 'Focus'],
     image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=1000&fit=crop',
     color: '#FFFFFF',
   },
   {
     id: 5,
-    title: 'Cloud Migration',
-    category: 'Infrastructure Modernization',
-    description: 'Migrated enterprise infrastructure to cloud-native architecture, reducing costs by 60% while improving scalability and performance.',
-    metrics: ['60% Cost Reduction', 'Cloud-Native', 'Global Scale'],
+    title: 'Owning the Category',
+    category: 'Market',
+    description: 'A new entrant with a strong product and a fuzzy position. We framed the category, sharpened differentiation, and built a launch playbook. Six months later they were the name to beat.',
+    metrics: ['Category Lead', 'GTM Playbook', '6 Months'],
     image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=1000&fit=crop',
     color: '#DC2626',
   },
 ];
 
 const backgroundWords = [
-  'WORK',
+  'CASE STUDIES',
+  'LAUNCH',
+  'PITCH',
   'BUILD',
-  'CREATE',
-  'INNOVATE',
-  'EXECUTE',
-  'DELIVER',
-  'ACHIEVE',
-  'LEAD',
-  'STRATEGY',
+  'FOCUS',
+  'SCALE',
+  'SHIP',
+  'IMPACT',
+  'STORY',
   'RESULTS',
 ];
 
@@ -138,7 +138,7 @@ const Work = () => {
       // Background text parallax - slower, more subtle
       if (backgroundTextRef.current && sectionRef.current) {
         const words = backgroundTextRef.current.querySelectorAll('.bg-word');
-        const numCards = horizontalRef.current?.children.length || workProjects.length;
+        const numCards = horizontalRef.current?.children.length || caseStudies.length;
         const holdDistance = 250;
         const transitionDistance = 100;
         const scrollDistancePerCard = holdDistance + transitionDistance;
@@ -172,7 +172,7 @@ const Work = () => {
 
   return (
     <section
-      id="work"
+      id="case-studies"
       ref={sectionRef}
       className="relative bg-black overflow-hidden"
     >
@@ -201,7 +201,7 @@ const Work = () => {
       {/* Section Heading */}
       <div className="absolute top-12 sm:top-16 md:top-20 left-1/2 -translate-x-1/2 z-30 pointer-events-none px-4">
         <h1 className="font-reckoner text-3xl sm:text-4xl md:text-6xl lg:text-8xl xl:text-9xl font-bold text-white/10 text-center">
-        Professional Highlights
+        Case Studies
         </h1>
       </div>
 
@@ -214,7 +214,7 @@ const Work = () => {
             className="flex h-full"
             style={{ willChange: 'transform' }}
           >
-              {workProjects.map((project, index) => (
+              {caseStudies.map((project, index) => (
                 <div
                   key={project.id}
                   className="w-[85vw] sm:w-[88vw] md:w-[90vw] h-full flex-shrink-0 flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12"
@@ -310,15 +310,15 @@ const Work = () => {
 
                         {/* CTA Button - Enhanced */}
                         <div className="pt-2">
-                          <button className="group relative px-6 sm:px-8 py-3 sm:py-4 bg-[#ffcc00] text-black rounded-full font-medium overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-[#ffcc00]/40">
+                          <a href="/case-studies" className="group relative inline-block px-6 sm:px-8 py-3 sm:py-4 bg-[#ffcc00] text-black rounded-full font-medium overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-[#ffcc00]/40">
                             <span className="relative z-10 flex items-center gap-2 text-sm sm:text-base">
-                              View Case Study
+                              View Case Studies
                               <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                               </svg>
                             </span>
                             <div className="absolute inset-0 bg-gradient-to-r from-[#ffcc00] via-[#ffd633] to-[#ffcc00] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                          </button>
+                          </a>
                         </div>
                       </div>
                     </div>

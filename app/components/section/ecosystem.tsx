@@ -10,33 +10,33 @@ gsap.registerPlugin(ScrollTrigger);
 
 const ECOSYSTEM = [
   {
-    title: "Strategic Advisory",
-    desc: "High-level guidance for executives navigating digital transformation and market disruption.",
+    title: "From Idea to First Ship",
+    desc: "Shape the concept, lock the roadmap, and get the first version out—without the drift.",
     size: "large",
   },
   {
-    title: "Network Access",
-    desc: "Exclusive connections to industry leaders, investors, and decision-makers worldwide.",
+    title: "The Story That Wins the Room",
+    desc: "Narrative, deck, and message that make investors believe—and write cheques.",
     size: "medium",
   },
   {
-    title: "Venture Building",
-    desc: "End-to-end support for launching and scaling breakthrough technology ventures.",
+    title: "Technical Guidance",
+    desc: "Stack, architecture, and the right technical choices so you build to last.",
     size: "medium",
   },
   {
-    title: "Risk Intelligence",
-    desc: "Proactive identification and mitigation of strategic and operational risks.",
+    title: "Systems That Scale",
+    desc: "Reliability, trade-offs, and design that grows with you.",
     size: "small",
   },
   {
-    title: "Innovation Labs",
-    desc: "Rapid prototyping and validation of emerging technologies and business models.",
+    title: "Product Focus",
+    desc: "Cut scope, prioritise, and ship what actually moves the needle.",
     size: "small",
   },
   {
-    title: "AI Integration",
-    desc: "Seamless implementation of artificial intelligence across business operations.",
+    title: "Own the Category",
+    desc: "Frame the market, sharpen differentiation, and lead the conversation.",
     size: "large",
   },
 ];
@@ -46,112 +46,128 @@ const ECOSYSTEM_CONTENT_SETS = [
   {
     // Set 1
     strategicAdvisory: {
-      title: "Strategic Advisory",
-      desc: "High-level guidance for executives navigating digital transformation and market disruption.",
+      title: "From Idea to First Ship",
+      desc: "Shape the concept, lock the roadmap, and get the first version out—without the drift.",
     },
     networkAccess: {
-      word1: "NET",
-      word2: "WORK",
-      word3: "ACCESS",
-      word4: "LINK",
-      word5: "CONNECT",
+      word1: "CONCEPT",
+      word2: "ROADMAP",
+      word3: "LAUNCH",
+      word4: "SHIP",
+      word5: "BUILD",
       year: "2026",
     },
     ventureBuilding: {
-      words: ["VENTURE", "BY.", "THE", "BUILDING"],
+      words: ["STORY", "DECK", "PITCH", "ROUND"],
       image: "/bg1.jpg",
     },
     riskIntelligence: {
-      words: ["RISK", "BY.", "THE", "INTELLIGENCE"],
+      words: ["ARCHITECTURE", "SCALE", "SYSTEM", "DESIGN"],
       image: "/bg2.jpg",
     },
     innovationLabs: {
-      title: "Innovation Labs",
-      desc: "Rapid prototyping and validation of emerging technologies and business models.",
+      title: "Product Focus",
+      desc: "Cut scope, prioritise, and ship what actually moves the needle.",
     },
   },
   {
     // Set 2
     strategicAdvisory: {
-      title: "Executive Strategy",
-      desc: "C-suite level strategic planning and decision-making support for transformative initiatives.",
+      title: "The Story That Wins the Room",
+      desc: "Narrative, deck, and message that make investors believe—and write cheques.",
     },
     networkAccess: {
-      word1: "GLOBAL",
-      word2: "NETWORK",
-      word3: "PARTNERS",
-      word4: "ALLIANCE",
-      word5: "SYSTEM",
+      word1: "STACK",
+      word2: "SCALE",
+      word3: "RELIABLE",
+      word4: "BUILD",
+      word5: "LAST",
       year: "2026",
     },
     ventureBuilding: {
-      words: ["STARTUP", "ACCELERATOR", "SCALE", "GROWTH"],
+      words: ["CATEGORY", "MARKET", "GTM", "LEAD"],
       image: "/bg3.jpg",
     },
     riskIntelligence: {
-      words: ["THREAT", "ANALYSIS", "&", "MITIGATION"],
+      words: ["FOCUS", "PRIORITY", "SHIP", "CLARITY"],
       image: "/bg3.jpg",
     },
     innovationLabs: {
-      title: "R&D Acceleration",
-      desc: "Fast-track research and development cycles with cutting-edge methodologies and tools.",
+      title: "Own the Category",
+      desc: "Frame the market, sharpen differentiation, and lead the conversation.",
     },
   },
   {
     // Set 3
     strategicAdvisory: {
-      title: "Digital Transformation",
-      desc: "Comprehensive roadmap and execution strategy for enterprise-wide digital modernization.",
+      title: "Technical Guidance",
+      desc: "Stack, architecture, and the right technical choices so you build to last.",
     },
     networkAccess: {
-      word1: "CONNECT",
-      word2: "INVEST",
-      word3: "LEAD",
-      word4: "INNOVATE",
-      word5: "DISRUPT",
+      word1: "PITCH",
+      word2: "STORY",
+      word3: "INVEST",
+      word4: "READY",
+      word5: "CLOSE",
       year: "2026",
     },
     ventureBuilding: {
-      words: ["BUILD", "LAUNCH", "INNOVATE", "TRANSFORM"],
+      words: ["LAUNCH", "ITERATE", "LEARN", "SHIP"],
       image: "/bg4.jpg",
     },
     riskIntelligence: {
-      words: ["SECURITY", "AUDIT", "&", "COMPLIANCE"],
+      words: ["TECH", "DUE", "DILIGENCE", "READY"],
       image: "/bg4.jpg",
     },
     innovationLabs: {
-      title: "Tech Validation",
-      desc: "Comprehensive testing and validation of new technologies before market deployment.",
+      title: "Systems That Scale",
+      desc: "Reliability, trade-offs, and design that grows with you.",
     },
   },
   {
     // Set 4
     strategicAdvisory: {
-      title: "Market Leadership",
-      desc: "Positioning strategies and competitive advantage frameworks for market dominance.",
+      title: "Own the Category",
+      desc: "Frame the market, sharpen differentiation, and lead the conversation.",
     },
     networkAccess: {
-      word1: "ECOSYSTEM",
-      word2: "COMMUNITY",
-      word3: "COLLABORATE",
-      word4: "UNITE",
-      word5: "POWER",
+      word1: "BUILD",
+      word2: "FUND",
+      word3: "POSITION",
+      word4: "SHIP",
+      word5: "IMPACT",
       year: "2026",
     },
     ventureBuilding: {
-      words: ["VENTURE", "CAPITAL", "FUND", "SUPPORT"],
+      words: ["THINKCHAINS", "CLARITY", "BUILD", "SHIP"],
       image: "/bg5.jpg",
     },
     riskIntelligence: {
-      words: ["RISK", "ASSESSMENT", "&", "STRATEGY"],
+      words: ["FOCUS", "SHARP", "&", "SHIP"],
       image: "/bg5.jpg",
     },
     innovationLabs: {
-      title: "Prototype Development",
-      desc: "Transform ideas into working prototypes with agile development processes.",
+      title: "Launch & Iterate",
+      desc: "Get from idea to first ship. Build, launch, learn—without the usual drift.",
     },
   },
 ];
+
+// Per content set, per card: only yellow / white / black. Text and kinetic lines follow for visibility.
+const CARD_THEMES: ("yellow" | "black" | "white")[][] = [
+  ["yellow", "yellow", "white", "white", "yellow", "yellow"],
+  ["black", "yellow", "black", "white", "yellow", "black"],
+  ["yellow", "black", "white", "black", "black", "yellow"],
+  ["black", "white", "yellow", "yellow", "white", "black"],
+];
+
+function getCardThemeStyles(theme: "yellow" | "black" | "white") {
+  if (theme === "yellow")
+    return { bg: "#ffcc00", textColor: "#0a0a0a", lineColor: "#000000" };
+  if (theme === "black")
+    return { bg: "linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 50%, #000 100%)", textColor: "#ffffff", lineColor: "#ffffff" };
+  return { bg: "#fafafa", textColor: "#0a0a0a", lineColor: "#000000" };
+}
 
 export default function Ecosystem() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -333,6 +349,8 @@ export default function Ecosystem() {
     return `${base} ${elegantBg} ${heightClass} ${gridSpan}`;
   };
 
+  const getTheme = (cardIndex: number) => getCardThemeStyles(CARD_THEMES[contentIndex][cardIndex]);
+
   return (
     <section
       ref={sectionRef}
@@ -363,10 +381,10 @@ export default function Ecosystem() {
       <div className="relative z-10 max-w-7xl mx-auto px-2 sm:px-3 md:px-4 lg:px-6 flex-1 flex items-center py-2 sm:py-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6 w-full">
           {ECOSYSTEM.map((item, i) => {
-            // Network Access Card - PORTO Style (Yellow BG, Black Letters, 3D)
+            // Network Access Card - PORTO Style (theme: yellow/white/black, text and lines follow)
             if (i === 1) {
               const currentContent = ECOSYSTEM_CONTENT_SETS[contentIndex].networkAccess;
-              
+              const t = getTheme(1);
               return (
                 <div
                   key={i}
@@ -375,73 +393,38 @@ export default function Ecosystem() {
                   }}
                   className={getCardClasses(item.size)}
                 >
-                  <div className="absolute inset-0 bg-[#ffcc00] rounded-2xl overflow-hidden">
-                    {/* 3D Scattered Network Words */}
+                  <div className="absolute inset-0 rounded-2xl overflow-hidden transition-all duration-500" style={{ background: t.bg }}>
                     <div className="relative h-full w-full p-3 sm:p-4 md:p-6">
-                      {/* Dynamic words - scattered, 3D effect - Responsive sizes */}
                       <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4">
                         <span
-                          className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-reckoner font-bold text-black inline-block transition-opacity duration-300"
-                          style={{
-                            transform: 'rotate(0deg)',
-                            textShadow: '2px 2px 0px rgba(0,0,0,0.3), 4px 4px 0px rgba(0,0,0,0.2)',
-                          }}
+                          className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-reckoner font-bold inline-block transition-opacity duration-300"
+                          style={{ color: t.textColor, textShadow: t.textColor === "#ffffff" ? "2px 2px 0px rgba(0,0,0,0.4)" : "2px 2px 0px rgba(0,0,0,0.3), 4px 4px 0px rgba(0,0,0,0.2)" }}
                         >
                           {currentContent.word1}
                         </span>
                       </div>
                       <div className="absolute bottom-4 sm:bottom-8 right-4 sm:right-12">
-                        <span
-                          className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-reckoner font-bold text-black inline-block transition-opacity duration-300"
-                          style={{
-                            transform: 'rotate(-5deg)',
-                            textShadow: '2px 2px 0px rgba(0,0,0,0.3), 4px 4px 0px rgba(0,0,0,0.2)',
-                          }}
-                        >
+                        <span className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-reckoner font-bold inline-block transition-opacity duration-300" style={{ color: t.textColor, transform: "rotate(-5deg)", textShadow: t.textColor === "#ffffff" ? "2px 2px 0px rgba(0,0,0,0.4)" : "2px 2px 0px rgba(0,0,0,0.3), 4px 4px 0px rgba(0,0,0,0.2)" }}>
                           {currentContent.word2}
                         </span>
                       </div>
                       <div className="absolute top-2 sm:top-6 left-2 sm:left-4">
-                        <span
-                          className="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-reckoner font-bold text-black inline-block transition-opacity duration-300"
-                          style={{
-                            transform: 'rotate(8deg)',
-                            textShadow: '1px 1px 0px rgba(0,0,0,0.3), 3px 3px 0px rgba(0,0,0,0.2)',
-                          }}
-                        >
+                        <span className="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-reckoner font-bold inline-block transition-opacity duration-300" style={{ color: t.textColor, transform: "rotate(8deg)", textShadow: t.textColor === "#ffffff" ? "2px 2px 0px rgba(0,0,0,0.4)" : "1px 1px 0px rgba(0,0,0,0.3), 3px 3px 0px rgba(0,0,0,0.2)" }}>
                           {currentContent.word3}
                         </span>
                       </div>
                       <div className="absolute top-8 sm:top-16 left-4 sm:left-12">
-                        <span
-                          className="text-lg sm:text-2xl md:text-4xl lg:text-5xl font-reckoner font-bold text-black inline-block transition-opacity duration-300"
-                          style={{
-                            transform: 'rotate(-12deg)',
-                            textShadow: '1px 1px 0px rgba(0,0,0,0.3), 3px 3px 0px rgba(0,0,0,0.2)',
-                          }}
-                        >
+                        <span className="text-lg sm:text-2xl md:text-4xl lg:text-5xl font-reckoner font-bold inline-block transition-opacity duration-300" style={{ color: t.textColor, transform: "rotate(-12deg)", textShadow: t.textColor === "#ffffff" ? "2px 2px 0px rgba(0,0,0,0.4)" : "1px 1px 0px rgba(0,0,0,0.3), 3px 3px 0px rgba(0,0,0,0.2)" }}>
                           {currentContent.word4}
                         </span>
                       </div>
                       <div className="absolute bottom-8 sm:bottom-16 left-2 sm:left-6">
-                        <span
-                          className="text-base sm:text-xl md:text-3xl lg:text-4xl font-reckoner font-bold text-black inline-block transition-opacity duration-300"
-                          style={{
-                            transform: 'rotate(15deg)',
-                            textShadow: '1px 1px 0px rgba(0,0,0,0.3), 2px 2px 0px rgba(0,0,0,0.2)',
-                          }}
-                        >
+                        <span className="text-base sm:text-xl md:text-3xl lg:text-4xl font-reckoner font-bold inline-block transition-opacity duration-300" style={{ color: t.textColor, transform: "rotate(15deg)", textShadow: t.textColor === "#ffffff" ? "2px 2px 0px rgba(0,0,0,0.4)" : "1px 1px 0px rgba(0,0,0,0.3), 2px 2px 0px rgba(0,0,0,0.2)" }}>
                           {currentContent.word5}
                         </span>
                       </div>
                       <div className="absolute top-4 sm:top-8 right-2 sm:right-8">
-                        <span
-                          className="text-sm sm:text-lg md:text-2xl lg:text-3xl font-reckoner font-bold text-black inline-block transition-opacity duration-300"
-                          style={{
-                            transform: 'rotate(-8deg)',
-                            textShadow: '1px 1px 0px rgba(0,0,0,0.3), 2px 2px 0px rgba(0,0,0,0.2)',
-                          }}
-                        >
+                        <span className="text-sm sm:text-lg md:text-2xl lg:text-3xl font-reckoner font-bold inline-block transition-opacity duration-300" style={{ color: t.textColor, transform: "rotate(-8deg)", textShadow: t.textColor === "#ffffff" ? "2px 2px 0px rgba(0,0,0,0.4)" : "1px 1px 0px rgba(0,0,0,0.3), 2px 2px 0px rgba(0,0,0,0.2)" }}>
                           {currentContent.year}
                         </span>
                       </div>
@@ -451,9 +434,10 @@ export default function Ecosystem() {
               );
             }
 
-            // AI Integration Card - Pills Style (Yellow BG, Black Text, Pills)
+            // AI Integration Card - Pills Style (theme: yellow/white/black)
             if (i === 5) {
-              const aiPills = ["Machine Learning", "Neural Networks", "Deep Learning", "NLP", "Computer Vision", "AI Models", "Data Science", "Automation"];
+              const aiPills = ["Product Development", "Product Design", "Product Strategy", "Product Management", "Product Marketing", "Product Engineering", "Product Analytics", "Product Automation"];
+              const t = getTheme(5);
               return (
                 <div
                   key={i}
@@ -462,30 +446,30 @@ export default function Ecosystem() {
                   }}
                   className={getCardClasses(item.size)}
                 >
-                  <div className="absolute inset-0 bg-[#ffcc00] rounded-2xl overflow-hidden">
+                  <div className="absolute inset-0 rounded-2xl overflow-hidden transition-all duration-500" style={{ background: t.bg }}>
                     <div className="relative h-full flex flex-col p-3 sm:p-4 md:p-6 lg:p-8">
-                      {/* Top Section - Headline */}
                       <div className="mb-3 sm:mb-4 md:mb-6">
-                        <h4 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-reckoner font-bold text-black mb-1 sm:mb-2">
+                        <h4 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-reckoner font-bold mb-1 sm:mb-2" style={{ color: t.textColor }}>
                           ALL YOUR
                         </h4>
-                        <h4 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-sunday-ballerina italic font-bold text-black">
-                          AI needs
+                        <h4 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-sunday-ballerina italic font-bold" style={{ color: t.textColor }}>
+                          Product needs
                         </h4>
                       </div>
 
-                      {/* Description */}
-                      <p className="text-[10px] sm:text-xs md:text-sm lg:text-base text-black/80 mb-3 sm:mb-4 md:mb-6 font-sunday-ballerina max-w-xs leading-tight sm:leading-normal">
-                        All type of AI services in one place with the assurance of highest excellence and usability
+                      <p className="text-[10px] sm:text-xs md:text-sm lg:text-base mb-3 sm:mb-4 md:mb-6 font-sunday-ballerina max-w-xs leading-tight sm:leading-normal" style={{ color: t.textColor, opacity: 0.85 }}>
+                        All type of product services in one place with the assurance of highest excellence and usability
                       </p>
 
-                      {/* Pills Section */}
                       <div className="flex flex-wrap gap-1.5 sm:gap-2 md:gap-3 mt-auto">
                         {aiPills.map((pill, idx) => (
                           <div
                             key={idx}
-                            className="px-2 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 bg-white rounded-full border-2 border-black text-black text-[9px] sm:text-[10px] md:text-xs lg:text-sm font-mono font-bold whitespace-nowrap"
+                            className="px-2 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 rounded-full border-2 text-[9px] sm:text-[10px] md:text-xs lg:text-sm font-mono font-bold whitespace-nowrap"
                             style={{
+                              backgroundColor: t.textColor === "#0a0a0a" ? "#fff" : "rgba(255,255,255,0.2)",
+                              borderColor: t.textColor,
+                              color: t.textColor,
                               transform: `rotate(${(idx % 2 === 0 ? 1 : -1) * (idx * 2)}deg)`,
                             }}
                           >
@@ -499,135 +483,50 @@ export default function Ecosystem() {
               );
             }
 
-            // Venture Building - Product Design Style (Image BG, Scattered Text)
+            // Venture Building - Image BG, theme overlay + text color
             if (i === 2) {
               const currentContent = ECOSYSTEM_CONTENT_SETS[contentIndex].ventureBuilding;
               const words = currentContent.words;
-              
+              const t = getTheme(2);
+              const overlayBg = t.bg.startsWith("linear") ? "rgba(0,0,0,0.82)" : t.bg === "#fafafa" ? "rgba(255,255,255,0.55)" : "rgba(255,204,0,0.88)";
               return (
-                <div
-                  key={i}
-                  ref={(el) => {
-                    if (el) cardsRef.current[i] = el;
-                  }}
-                  className={getCardClasses(item.size)}
-                >
-                  <div className="absolute inset-0 rounded-2xl overflow-hidden bg-white">
-                    {/* Background Image */}
+                <div key={i} ref={(el) => { if (el) cardsRef.current[i] = el; }} className={getCardClasses(item.size)}>
+                  <div className="absolute inset-0 rounded-2xl overflow-hidden transition-all duration-500" style={{ background: t.bg }}>
                     <div className="absolute inset-0">
-                      <Image
-                        src={currentContent.image}
-                        alt={item.title}
-                        fill
-                        className="object-cover opacity-40 transition-opacity duration-300"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-white/40" />
+                      <Image src={currentContent.image} alt={item.title} fill className="object-cover opacity-50 transition-opacity duration-300" />
+                      <div className="absolute inset-0 transition-all duration-500" style={{ background: overlayBg }} />
                     </div>
-
-                    {/* Scattered Text Overlay */}
                     <div className="relative h-full p-3 sm:p-4 md:p-6">
-                      {/* Top Left */}
-                      <div className="absolute top-2 sm:top-4 left-2 sm:left-4">
-                        <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-reckoner font-bold text-black transition-opacity duration-300">
-                          {words[0]}
-                        </span>
-                      </div>
-                      
-                      {/* Below Top Left */}
-                      <div className="absolute top-6 sm:top-12 left-3 sm:left-6">
-                        <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-reckoner font-bold text-black transition-opacity duration-300">
-                          {words[1]}
-                        </span>
-                      </div>
-
-                      {/* Right Side */}
-                      <div className="absolute top-4 sm:top-8 right-3 sm:right-6">
-                        <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-reckoner font-bold text-black transition-opacity duration-300">
-                          {words[2]}
-                        </span>
-                      </div>
-
-                      {/* Bottom Left */}
-                      <div className="absolute bottom-3 sm:bottom-6 left-2 sm:left-4">
-                        <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-reckoner font-bold text-black transition-opacity duration-300">
-                          {words[3]}
-                        </span>
-                      </div>
-
-                      {/* Bottom Right - Year */}
-                      <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4">
-                        <span className="text-sm sm:text-base md:text-lg lg:text-xl font-reckoner font-bold text-black/60">
-                          @26
-                        </span>
-                      </div>
+                      <div className="absolute top-2 sm:top-4 left-2 sm:left-4"><span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-reckoner font-bold transition-opacity duration-300" style={{ color: t.textColor }}>{words[0]}</span></div>
+                      <div className="absolute top-6 sm:top-12 left-3 sm:left-6"><span className="text-base sm:text-lg md:text-xl lg:text-2xl font-reckoner font-bold transition-opacity duration-300" style={{ color: t.textColor }}>{words[1]}</span></div>
+                      <div className="absolute top-4 sm:top-8 right-3 sm:right-6"><span className="text-base sm:text-lg md:text-xl lg:text-2xl font-reckoner font-bold transition-opacity duration-300" style={{ color: t.textColor }}>{words[2]}</span></div>
+                      <div className="absolute bottom-3 sm:bottom-6 left-2 sm:left-4"><span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-reckoner font-bold transition-opacity duration-300" style={{ color: t.textColor }}>{words[3]}</span></div>
+                      <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4"><span className="text-sm sm:text-base md:text-lg lg:text-xl font-reckoner font-bold transition-opacity duration-300" style={{ color: t.textColor, opacity: 0.7 }}>@26</span></div>
                     </div>
                   </div>
                 </div>
               );
             }
 
-            // Risk Intelligence - Product Design Style with Navigation Buttons
+            // Risk Intelligence - Image BG, theme overlay + text color
             if (i === 3) {
               const currentContent = ECOSYSTEM_CONTENT_SETS[contentIndex].riskIntelligence;
               const words = currentContent.words;
-              
+              const t = getTheme(3);
+              const overlayBg = t.bg.startsWith("linear") ? "rgba(0,0,0,0.82)" : t.bg === "#fafafa" ? "rgba(255,255,255,0.55)" : "rgba(255,204,0,0.88)";
               return (
-                <div
-                  key={i}
-                  ref={(el) => {
-                    if (el) cardsRef.current[i] = el;
-                  }}
-                  className={getCardClasses(item.size)}
-                >
-                  <div className="absolute inset-0 rounded-2xl overflow-hidden bg-white">
-                    {/* Background Image */}
+                <div key={i} ref={(el) => { if (el) cardsRef.current[i] = el; }} className={getCardClasses(item.size)}>
+                  <div className="absolute inset-0 rounded-2xl overflow-hidden transition-all duration-500" style={{ background: t.bg }}>
                     <div className="absolute inset-0">
-                      <Image
-                        src={currentContent.image}
-                        alt={item.title}
-                        fill
-                        className="object-cover opacity-40 transition-opacity duration-300"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-white/40" />
+                      <Image src={currentContent.image} alt={item.title} fill className="object-cover opacity-50 transition-opacity duration-300" />
+                      <div className="absolute inset-0 transition-all duration-500" style={{ background: overlayBg }} />
                     </div>
-
-                    {/* Scattered Text Overlay */}
                     <div className="relative h-full p-6">
-                      {/* Top Left */}
-                      <div className="absolute top-4 left-4">
-                        <span className="text-2xl md:text-3xl font-reckoner font-bold text-black transition-opacity duration-300">
-                          {words[0]}
-                        </span>
-                      </div>
-                      
-                      {/* Below Top Left */}
-                      <div className="absolute top-12 left-6">
-                        <span className="text-xl md:text-2xl font-reckoner font-bold text-black transition-opacity duration-300">
-                          {words[1]}
-                        </span>
-                      </div>
-
-                      {/* Right Side */}
-                      <div className="absolute top-8 right-6">
-                        <span className="text-xl md:text-2xl font-reckoner font-bold text-black transition-opacity duration-300">
-                          {words[2]}
-                        </span>
-                      </div>
-
-                      {/* Bottom Left */}
-                      <div className="absolute bottom-6 left-4">
-                        <span className="text-3xl md:text-4xl font-reckoner font-bold text-black transition-opacity duration-300">
-                          {words[3]}
-                        </span>
-                      </div>
-
-                      {/* Bottom Right - Year */}
-                      <div className="absolute bottom-4 right-4">
-                        <span className="text-lg md:text-xl font-reckoner font-bold text-black/60">
-                          @26
-                        </span>
-                      </div>
-
+                      <div className="absolute top-4 left-4"><span className="text-2xl md:text-3xl font-reckoner font-bold transition-opacity duration-300" style={{ color: t.textColor }}>{words[0]}</span></div>
+                      <div className="absolute top-12 left-6"><span className="text-xl md:text-2xl font-reckoner font-bold transition-opacity duration-300" style={{ color: t.textColor }}>{words[1]}</span></div>
+                      <div className="absolute top-8 right-6"><span className="text-xl md:text-2xl font-reckoner font-bold transition-opacity duration-300" style={{ color: t.textColor }}>{words[2]}</span></div>
+                      <div className="absolute bottom-6 left-4"><span className="text-3xl md:text-4xl font-reckoner font-bold transition-opacity duration-300" style={{ color: t.textColor }}>{words[3]}</span></div>
+                      <div className="absolute bottom-4 right-4"><span className="text-lg md:text-xl font-reckoner font-bold transition-opacity duration-300" style={{ color: t.textColor, opacity: 0.7 }}>@26</span></div>
                     </div>
                   </div>
                 </div>
@@ -637,154 +536,53 @@ export default function Ecosystem() {
             // Strategic Advisory - Yellow Card (uses dynamic content)
             if (i === 0) {
               const currentContent = ECOSYSTEM_CONTENT_SETS[contentIndex].strategicAdvisory;
-              
+              const t = getTheme(0);
+              const lineStyle = { backgroundColor: t.lineColor, boxShadow: t.lineColor === "#000000" ? "0 0 8px rgba(0,0,0,0.8)" : "0 0 12px rgba(255,255,255,0.9)" };
               return (
-                <div
-                  key={i}
-                  ref={(el) => {
-                    if (el) cardsRef.current[i] = el;
-                  }}
-                  className={getCardClasses(item.size)}
-                >
-                  {/* Elegant inner container with subtle border glow */}
-                  <div className="absolute inset-0 rounded-2xl overflow-hidden transition-all duration-500 bg-[#ffcc00]">
-                    {/* TRAVELING LINES - Black for yellow cards */}
+                <div key={i} ref={(el) => { if (el) cardsRef.current[i] = el; }} className={getCardClasses(item.size)}>
+                  <div className="absolute inset-0 rounded-2xl overflow-hidden transition-all duration-500" style={{ background: t.bg }}>
                     <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
-                      {/* Thin lines */}
-                      <span
-                        className="kinetic-line absolute left-[-150%] top-[20%]
-                                 h-[1.5px] w-[300%]
-                                 bg-black shadow-[0_0_8px_rgba(0,0,0,0.8)]
-                                 rotate-[-35deg]
-                                 opacity-90"
-                      />
-                      <span
-                        className="kinetic-line absolute left-[-150%] top-[50%]
-                                 h-[1.5px] w-[300%]
-                                 bg-black shadow-[0_0_8px_rgba(0,0,0,0.8)]
-                                 rotate-[25deg]
-                                 opacity-90"
-                      />
-                      <span
-                        className="kinetic-line absolute left-[-150%] top-[75%]
-                                 h-[1.5px] w-[300%]
-                                 bg-black shadow-[0_0_8px_rgba(0,0,0,0.8)]
-                                 rotate-[-28deg]
-                                 opacity-90"
-                      />
-                      
-                      {/* Thick bars */}
-                      <span
-                        className="kinetic-bar absolute left-[-200%] top-[35%]
-                                 h-[4px] w-[400%]
-                                 bg-black shadow-[0_0_12px_rgba(0,0,0,0.9)]
-                                 rotate-[30deg]
-                                 opacity-95"
-                      />
-                      <span
-                        className="kinetic-bar absolute left-[-200%] top-[65%]
-                                 h-[3px] w-[400%]
-                                 bg-black shadow-[0_0_10px_rgba(0,0,0,0.9)]
-                                 rotate-[-32deg]
-                                 opacity-95"
-                      />
+                      <span className="kinetic-line absolute left-[-150%] top-[20%] h-[1.5px] w-[300%] rotate-[-35deg] opacity-90" style={lineStyle} />
+                      <span className="kinetic-line absolute left-[-150%] top-[50%] h-[1.5px] w-[300%] rotate-[25deg] opacity-90" style={lineStyle} />
+                      <span className="kinetic-line absolute left-[-150%] top-[75%] h-[1.5px] w-[300%] rotate-[-28deg] opacity-90" style={lineStyle} />
+                      <span className="kinetic-bar absolute left-[-200%] top-[35%] h-[4px] w-[400%] rotate-[30deg] opacity-95" style={{ ...lineStyle, boxShadow: t.lineColor === "#000000" ? "0 0 12px rgba(0,0,0,0.9)" : "0 0 14px rgba(255,255,255,0.95)" }} />
+                      <span className="kinetic-bar absolute left-[-200%] top-[65%] h-[3px] w-[400%] rotate-[-32deg] opacity-95" style={{ ...lineStyle, boxShadow: t.lineColor === "#000000" ? "0 0 10px rgba(0,0,0,0.9)" : "0 0 12px rgba(255,255,255,0.9)" }} />
                     </div>
-
-                    {/* Number/Index indicator - elegant and minimal */}
                     <div className="absolute top-3 sm:top-4 md:top-6 right-3 sm:right-4 md:right-6 opacity-20 group-hover:opacity-40 transition-opacity duration-500">
-                      <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-reckoner font-bold text-black/30">
-                        {String(i + 1).padStart(2, '0')}
-                      </span>
+                      <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-reckoner font-bold" style={{ color: t.textColor, opacity: 0.35 }}>{String(i + 1).padStart(2, "0")}</span>
                     </div>
                   </div>
-
-                  {/* CONTENT - Better spacing and hierarchy */}
                   <div className="relative z-10 h-full flex flex-col">
-                    <h4 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-reckoner font-bold mb-2 sm:mb-3 tracking-tight text-black group-hover:text-black/90 transition-colors">
-                      {currentContent.title}
-                    </h4>
-                    <div className="h-px w-12 sm:w-14 md:w-16 bg-gradient-to-r from-black/50 to-transparent mb-2 sm:mb-3 group-hover:w-20 sm:group-hover:w-24 transition-all duration-500" />
-                    <p className="text-xs sm:text-sm md:text-base leading-relaxed font-sunday-ballerina text-black/80 group-hover:text-black/90 transition-colors">
-                      {currentContent.desc}
-                    </p>
+                    <h4 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-reckoner font-bold mb-2 sm:mb-3 tracking-tight transition-colors duration-300" style={{ color: t.textColor }}>{currentContent.title}</h4>
+                    <div className="h-px w-12 sm:w-14 md:w-16 mb-2 sm:mb-3 group-hover:w-20 sm:group-hover:w-24 transition-all duration-500" style={{ background: `linear-gradient(to right, ${t.textColor}50, transparent)` }} />
+                    <p className="text-xs sm:text-sm md:text-base leading-relaxed font-sunday-ballerina transition-colors duration-300" style={{ color: t.textColor, opacity: 0.85 }}>{currentContent.desc}</p>
                   </div>
                 </div>
               );
             }
 
-            // Innovation Labs - Yellow Card with Navigation Buttons (uses dynamic content)
             if (i === 4) {
               const currentContent = ECOSYSTEM_CONTENT_SETS[contentIndex].innovationLabs;
-              
+              const t = getTheme(4);
+              const lineStyle = { backgroundColor: t.lineColor, boxShadow: t.lineColor === "#000000" ? "0 0 8px rgba(0,0,0,0.8)" : "0 0 12px rgba(255,255,255,0.9)" };
               return (
-                <div
-                  key={i}
-                  ref={(el) => {
-                    if (el) cardsRef.current[i] = el;
-                  }}
-                  className={getCardClasses(item.size)}
-                >
-                  {/* Elegant inner container with subtle border glow */}
-                  <div className="absolute inset-0 rounded-2xl overflow-hidden transition-all duration-500 bg-[#ffcc00]">
-                    {/* TRAVELING LINES - Black for yellow cards */}
+                <div key={i} ref={(el) => { if (el) cardsRef.current[i] = el; }} className={getCardClasses(item.size)}>
+                  <div className="absolute inset-0 rounded-2xl overflow-hidden transition-all duration-500" style={{ background: t.bg }}>
                     <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
-                      {/* Thin lines */}
-                      <span
-                        className="kinetic-line absolute left-[-150%] top-[20%]
-                                 h-[1.5px] w-[300%]
-                                 bg-black shadow-[0_0_8px_rgba(0,0,0,0.8)]
-                                 rotate-[-35deg]
-                                 opacity-90"
-                      />
-                      <span
-                        className="kinetic-line absolute left-[-150%] top-[50%]
-                                 h-[1.5px] w-[300%]
-                                 bg-black shadow-[0_0_8px_rgba(0,0,0,0.8)]
-                                 rotate-[25deg]
-                                 opacity-90"
-                      />
-                      <span
-                        className="kinetic-line absolute left-[-150%] top-[75%]
-                                 h-[1.5px] w-[300%]
-                                 bg-black shadow-[0_0_8px_rgba(0,0,0,0.8)]
-                                 rotate-[-28deg]
-                                 opacity-90"
-                      />
-                      
-                      {/* Thick bars */}
-                      <span
-                        className="kinetic-bar absolute left-[-200%] top-[35%]
-                                 h-[4px] w-[400%]
-                                 bg-black shadow-[0_0_12px_rgba(0,0,0,0.9)]
-                                 rotate-[30deg]
-                                 opacity-95"
-                      />
-                      <span
-                        className="kinetic-bar absolute left-[-200%] top-[65%]
-                                 h-[3px] w-[400%]
-                                 bg-black shadow-[0_0_10px_rgba(0,0,0,0.9)]
-                                 rotate-[-32deg]
-                                 opacity-95"
-                      />
+                      <span className="kinetic-line absolute left-[-150%] top-[20%] h-[1.5px] w-[300%] rotate-[-35deg] opacity-90" style={lineStyle} />
+                      <span className="kinetic-line absolute left-[-150%] top-[50%] h-[1.5px] w-[300%] rotate-[25deg] opacity-90" style={lineStyle} />
+                      <span className="kinetic-line absolute left-[-150%] top-[75%] h-[1.5px] w-[300%] rotate-[-28deg] opacity-90" style={lineStyle} />
+                      <span className="kinetic-bar absolute left-[-200%] top-[35%] h-[4px] w-[400%] rotate-[30deg] opacity-95" style={{ ...lineStyle, boxShadow: t.lineColor === "#000000" ? "0 0 12px rgba(0,0,0,0.9)" : "0 0 14px rgba(255,255,255,0.95)" }} />
+                      <span className="kinetic-bar absolute left-[-200%] top-[65%] h-[3px] w-[400%] rotate-[-32deg] opacity-95" style={{ ...lineStyle, boxShadow: t.lineColor === "#000000" ? "0 0 10px rgba(0,0,0,0.9)" : "0 0 12px rgba(255,255,255,0.9)" }} />
                     </div>
-
-                    {/* Number/Index indicator - elegant and minimal */}
                     <div className="absolute top-3 sm:top-4 md:top-6 right-3 sm:right-4 md:right-6 opacity-20 group-hover:opacity-40 transition-opacity duration-500">
-                      <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-reckoner font-bold text-black/30">
-                        {String(i + 1).padStart(2, '0')}
-                      </span>
+                      <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-reckoner font-bold" style={{ color: t.textColor, opacity: 0.35 }}>{String(i + 1).padStart(2, "0")}</span>
                     </div>
                   </div>
-
-                  {/* CONTENT - Better spacing and hierarchy */}
                   <div className="relative z-10 h-full flex flex-col">
-                    <h4 className="text-2xl md:text-3xl lg:text-4xl font-reckoner font-bold mb-3 tracking-tight text-black group-hover:text-black/90 transition-colors">
-                      {currentContent.title}
-                    </h4>
-                    <div className="h-px w-16 bg-gradient-to-r from-black/50 to-transparent mb-3 group-hover:w-24 transition-all duration-500" />
-                    <p className="text-sm md:text-base leading-relaxed font-sunday-ballerina text-black/80 group-hover:text-black/90 transition-colors">
-                      {currentContent.desc}
-                    </p>
+                    <h4 className="text-2xl md:text-3xl lg:text-4xl font-reckoner font-bold mb-3 tracking-tight transition-colors duration-300" style={{ color: t.textColor }}>{currentContent.title}</h4>
+                    <div className="h-px w-16 mb-3 group-hover:w-24 transition-all duration-500" style={{ background: `linear-gradient(to right, ${t.textColor}50, transparent)` }} />
+                    <p className="text-sm md:text-base leading-relaxed font-sunday-ballerina transition-colors duration-300" style={{ color: t.textColor, opacity: 0.85 }}>{currentContent.desc}</p>
                   </div>
                 </div>
               );
@@ -880,19 +678,19 @@ export default function Ecosystem() {
         </div>
       </div>
       
-      {/* Navigation Buttons - Below Innovation Labs Card */}
+      {/* Navigation Buttons - theme yellow */}
       <div className="relative z-20 w-full max-w-7xl mx-auto px-2 sm:px-3 md:px-4 lg:px-6 mt-4 sm:mt-6  flex justify-center lg:justify-start">
         <div className="flex gap-2">
           <button
             onClick={prevContent}
-            className="px-3 py-2 bg-yellow-500/50 hover:bg-black/60 text-black hover:text-white rounded-lg transition-all duration-300 hover:scale-110 border border-black/30 backdrop-blur-sm text-xs md:text-sm font-medium"
+            className="px-3 py-2 bg-[#ffcc00]/70 hover:bg-black/60 text-black hover:text-white rounded-lg transition-all duration-300 hover:scale-110 border border-black/30 backdrop-blur-sm text-xs md:text-sm font-medium"
             aria-label="Previous content"
           >
             ← Prev
           </button>
           <button
             onClick={nextContent}
-            className="px-3 py-2 bg-yellow-500/50 hover:bg-black/60 text-black hover:text-white rounded-lg transition-all duration-300 hover:scale-110 border border-black/30 backdrop-blur-sm text-xs md:text-sm font-medium"
+            className="px-3 py-2 bg-[#ffcc00]/70 hover:bg-black/60 text-black hover:text-white rounded-lg transition-all duration-300 hover:scale-110 border border-black/30 backdrop-blur-sm text-xs md:text-sm font-medium"
             aria-label="Next content"
           >
             Next →

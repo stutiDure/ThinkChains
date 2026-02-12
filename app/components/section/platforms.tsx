@@ -6,12 +6,12 @@ import { animate, scroll, cubicBezier } from "motion";
 
 // Social media platform data
 const socialPlatforms = [
-  { name: "Instagram", icon: "instagram", color: "#E4405F", gradient: "linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)" },
-  { name: "Facebook", icon: "facebook", color: "#1877F2", gradient: "linear-gradient(135deg, #1877F2 0%, #0C63D4 100%)" },
-  { name: "Medium", icon: "medium", color: "#000000", gradient: "linear-gradient(135deg, #00AB6C 0%, #00C853 100%)" },
-  { name: "LinkedIn", icon: "linkedin", color: "#0A66C2", gradient: "linear-gradient(135deg, #0A66C2 0%, #004182 100%)" },
-  { name: "Twitter", icon: "twitter", color: "#000000", gradient: "linear-gradient(135deg,rgb(6, 6, 7) 0%,rgb(17, 18, 19) 100%)" },
-  { name: "YouTube", icon: "youtube", color: "#FF0000", gradient: "linear-gradient(135deg, #FF0000 0%, #CC0000 100%)" },
+  { name: "Instagram", icon: "instagram", color: "#E4405F", gradient: "linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)", url: "https://www.instagram.com/think_chains?igsh=MTY2aHZlMGNxcmR2eg%3D%3D&utm_source=qr" },
+  { name: "Facebook", icon: "facebook", color: "#1877F2", gradient: "linear-gradient(135deg, #1877F2 0%, #0C63D4 100%)", url: "" },
+  { name: "Medium", icon: "medium", color: "#000000", gradient: "linear-gradient(135deg, #00AB6C 0%, #00C853 100%)", url: "https://medium.com/@aditya_5969" },
+  { name: "LinkedIn", icon: "linkedin", color: "#0A66C2", gradient: "linear-gradient(135deg, #0A66C2 0%, #004182 100%)", url: "https://www.linkedin.com/company/111244209" },
+  { name: "Twitter", icon: "twitter", color: "#000000", gradient: "linear-gradient(135deg,rgb(6, 6, 7) 0%,rgb(17, 18, 19) 100%)", url: "https://x.com/thinkchains/" },
+  { name: "YouTube", icon: "youtube", color: "#FF0000", gradient: "linear-gradient(135deg, #FF0000 0%, #CC0000 100%)", url: "https://www.youtube.com/@thinkchains" },
 ];
 
 // Brand colors for social icons only (LinkedIn blue, YouTube red, Instagram pink, Medium black, X black, Facebook blue)
@@ -92,6 +92,7 @@ const SocialIcon = ({ icon, className }: { icon: string; className?: string }) =
 export default function ScrollMarquee() {
   const containerRef = useRef<HTMLDivElement>(null);
   const desktopSectionRef = useRef<HTMLElement>(null);
+  const arrowsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
@@ -106,6 +107,7 @@ export default function ScrollMarquee() {
     const scalerCard = document.querySelector<HTMLElement>(".scaler");
     const layers = document.querySelectorAll<HTMLElement>(".grid > .layer");
     const targetSection = desktopSectionRef.current;
+    const arrowsEl = arrowsRef.current;
 
     if (!scalerCard || !targetSection || layers.length === 0) return;
 
@@ -174,6 +176,27 @@ export default function ScrollMarquee() {
         }
       );
     });
+
+    // Yellow vertical arrows: shrink and disappear as cards come into view (gone before cards fully shown)
+    if (arrowsEl) {
+      scroll(
+        animate(
+          arrowsEl as any,
+          {
+            opacity: [1, 0],
+            scale: [1, 0.3],
+          } as any,
+          {
+            offset: [0, 0.65],
+            easing: cubicBezier(0.4, 0, 0.6, 1) as any,
+          } as any
+        ),
+        {
+          target: targetSection,
+          offset: ["start start", "80% end"] as any,
+        }
+      );
+    }
   }, []);
 
   return (
@@ -232,7 +255,7 @@ export default function ScrollMarquee() {
           <h1 className="text-3xl md:text-7xl lg:text-8xl font-bold font-reckoner text-white mb-4 md:mb-6">
             Social Media
           </h1>
-          <p className="text-sm md:text-lg lg:text-xl text-white/60 font-syne max-w-2xl mx-auto px-2">
+          <p className="text-xl md:text-2xl lg:text-3xl font-reckoner text-white/60 font-syne max-w-3xl mx-auto px-2">
             Follow our journey across platforms. Stay updated with our latest innovations, insights, and updates.
           </p>
         </div>
@@ -319,6 +342,30 @@ export default function ScrollMarquee() {
         {/* Desktop Sticky Scroll Section with Animation - visible from 700px, fits in h-screen with proper spacing */}
         <section ref={desktopSectionRef} className="platforms-desktop-section hidden min-[700px]:block min-h-[200vh] bg-black relative z-0">
           <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden px-4 box-border" style={{ paddingTop: "var(--platform-section-pt)", paddingBottom: "var(--platform-section-pb)" }}>
+            {/* Single huge yellow arrow: in the gap between main heading and cards only – no overlap with cards */}
+            <div
+              ref={arrowsRef}
+              className="absolute left-1/2 -translate-x-1/2 z-20 flex items-center justify-center pointer-events-none"
+              style={{
+                top: "8%",
+                bottom: "62%",
+                width: "clamp(130px, 24vw, 320px)",
+              }}
+              aria-hidden
+            >
+              <svg
+                className="w-full h-full text-[#D4AF37] drop-shadow-[0_0_32px_rgba(212,175,55,0.65)]"
+                viewBox="0 0 24 30"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                preserveAspectRatio="xMidYMid meet"
+              >
+                <path d="M12 2v22M6 18l6 6 6-6" />
+              </svg>
+            </div>
             <div className="grid w-full max-w-[1600px] grid-cols-5 grid-rows-3 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" style={{ gap: "var(--platform-grid-gap)", maxHeight: "var(--platform-available-h)", height: "var(--platform-available-h)", gridTemplateRows: "var(--platform-row-h) var(--platform-row-h) var(--platform-row-h)" }}>
               {/* Layer 1 - All cards with varied widget-inspired designs */}
               <div className="layer grid col-span-full row-span-full grid-cols-subgrid grid-rows-subgrid">
@@ -422,7 +469,7 @@ export default function ScrollMarquee() {
                           <div className="bg-black/90 text-white rounded-2xl p-4 shadow-xl">
                             <div className="text-2xl font-bold font-reckoner mb-1">{card.metrics.engagement}%</div>
                             <div className="text-sm font-syne font-semibold mb-2">Engagement</div>
-                            <div className="text-xl font-bold font-reckoner">{card.metrics.followers}K</div>
+                            <div className="text-xl font-bold font-reckoner">{card.metrics.followers}</div>
                           </div>
                         </div>
                       </div>
@@ -439,7 +486,7 @@ export default function ScrollMarquee() {
                             <h3 className="text-white font-bold text-xl font-reckoner mb-2 drop-shadow-lg uppercase">{card.name}</h3>
                           </div>
                           <div className="bg-black/90 text-white rounded-2xl p-4 shadow-xl">
-                            <div className="text-2xl font-bold font-reckoner mb-2">{("views" in card.metrics ? card.metrics.views : (card.metrics as { subscribers?: number }).subscribers + "K")}</div>
+                            <div className="text-2xl font-bold font-reckoner mb-2">{("views" in card.metrics ? card.metrics.views : (card.metrics as { subscribers?: string }).subscribers)}</div>
                             <p className="text-sm font-syne leading-snug line-clamp-2">{card.focus}</p>
                           </div>
                         </div>
@@ -473,7 +520,7 @@ export default function ScrollMarquee() {
                           </div>
                           <div className="bg-black/90 text-white rounded-br-2xl py-40 pl-20 px-6 shadow-xl text-left ">
                             <div className="text-3xl font-bold font-reckoner">{card.metrics.views}</div>
-                            <div className="text-sm font-syne font-semibold">Views</div>
+                            <div className="text-sm font-syne font-semibold">Viewers</div>
                           </div>
                         </div>
                       </div>
@@ -491,7 +538,7 @@ export default function ScrollMarquee() {
                             {/* <p className="text-white text-sm leading-snug font-medium line-clamp-2">{card.content}</p> */}
                           </div>
                           <div className="bg-black/90 text-white rounded-2xl p-3 shadow-xl">
-                            <div className="text-2xl font-bold font-reckoner">{card.metrics.members}K</div>
+                            <div className="text-2xl font-bold font-reckoner">{card.metrics.members}</div>
                           </div>
                         </div>
                       </div>
@@ -552,7 +599,7 @@ export default function ScrollMarquee() {
                           </div>
                           <div className="bg-[#D4AF37]/90 text-white rounded-2xl py-36  px-6 pl-20 shadow-xl text-right">
                             <div className="text-3xl font-bold font-reckoner">{card.metrics.tweets}</div>
-                            <div className="text-sm font-syne font-semibold">Total Tweets</div>
+                            <div className="text-sm font-syne font-semibold"> Tweets</div>
                           </div>
                         </div>
                       </div>
@@ -650,7 +697,7 @@ export default function ScrollMarquee() {
                             <div className="text-sm font-syne font-semibold">Engagement Rate</div>
                           </div>
                           <div className="text-right">
-                            <div className="text-2xl font-bold font-reckoner">{scalerCard.metrics.followers}K</div>
+                            <div className="text-2xl font-bold font-reckoner">{scalerCard.metrics.followers}</div>
                             <div className="text-sm font-syne font-semibold">Followers</div>
                           </div>
                         </div>
@@ -676,10 +723,12 @@ export default function ScrollMarquee() {
               Connect with us across all platforms. Be part of our journey as we build the future.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              {socialPlatforms.map((platform) => (
+              {socialPlatforms.filter(p => p.url).map((platform) => (
                 <a
                   key={platform.name}
-                  href="#"
+                  href={platform.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group w-14 h-14 flex items-center justify-center transition-all duration-300 hover:scale-110"
                 >
                   <SocialIcon icon={platform.icon} className="w-14 h-14 group-hover:scale-110 transition-transform" />
@@ -698,23 +747,23 @@ const layer1Cards = [
   { 
     ...socialPlatforms[0], 
     handle: "thinkchains", 
-    metrics: { followers: 85, label: "85K Followers", engagement: 92 },
+    metrics: { followers: "Follow US", label: "Follow Us", engagement: 78 },
     focus: "Visual storytelling & brand moments",
-    content: "Latest posts showcase our innovation labs, team culture, and behind-the-scenes moments from product launches.",
+    content: "Our latest posts showcase our work, team moments, and behind-the-scenes from client projects.",
     design: "gradient"
   },
   { 
     ...socialPlatforms[1], 
     handle: "thinkchains", 
-    metrics: { followers: 72, label: "72K Followers", views: "1.8M" },
+    metrics: { followers: "Join", label: "Join Us", views: "Active" },
     focus: "Community building & engagement",
-    content: "Active community discussions, Q&A sessions, and exclusive groups for developers and entrepreneurs.",
+    content: "Join the conversation—Q&A sessions, discussions, and updates for founders.",
     design: "stats"
   },
   { 
     ...socialPlatforms[2], 
     handle: "thinkchains", 
-    metrics: { followers: 68, label: "68K Followers", articles: 45 },
+    metrics: { followers: "Read", label: "Read Our Articles", articles: "Live" },
     focus: "Deep-dive tech articles",
     content: "Concise breakdowns, architecture notes, and technical how-tos.",
     design: "minimal"
@@ -722,25 +771,25 @@ const layer1Cards = [
   { 
     ...socialPlatforms[3], 
     handle: "thinkchains", 
-    metrics: { followers: 91, label: "91K Followers", views: "3.2M" },
+    metrics: { followers: "Connect", label: "Connect With Us", views: "Active" },
     focus: "Professional insights & thought leadership",
-    content: "Weekly insights on blockchain, AI, and digital transformation.",
+    content: "Insights on strategy, product, and go-to-market—follow for regular updates.",
     design: "professional"
   },
   { 
     ...socialPlatforms[4], 
     handle: "thinkchains", 
-    metrics: { followers: 78, label: "78K Followers", engagement: 88 },
+    metrics: { followers: "Follow", label: "Follow for Updates", engagement: 72 },
     focus: "Real-time updates & industry news",
-    content: "Live updates, product drops, and instant industry coverage.",
+    content: "Updates, announcements, and industry commentary.",
     design: "dark"
   },
   { 
     ...socialPlatforms[5], 
     handle: "thinkchains", 
-    metrics: { followers: 65, label: "65K Followers", views: "4.1M" },
+    metrics: { followers: "Subscribe", label: "Watch Our Videos", views: "Active" },
     focus: "Educational videos & tutorials",
-    content: "Weekly tutorials, product demos, conference talks, and educational series on blockchain and AI development.",
+    content: "Tutorials and educational content on building and launching.",
     design: "video"
   },
 ];
@@ -749,49 +798,49 @@ const layer2Cards = [
   { 
     ...socialPlatforms[0], 
     handle: "thinkchains", 
-    metrics: { views: "2.5M", engagement: 92 },
+    metrics: { views: "Live", engagement: 78 },
     focus: "Creative content & behind-the-scenes",
-    content: "Visual stories, product showcases, and creative campaigns that bring our brand to life.",
+    content: "Visual stories, project showcases, and behind-the-scenes moments.",
     design: "creative"
   },
   { 
     ...socialPlatforms[1], 
     handle: "thinkchains", 
-    metrics: { views: "1.8M", members: 72 },
+    metrics: { views: "Active", members: "Growing" },
     focus: "Community engagement & discussions",
-    content: "72K members sharing ideas, collaborating, and building together.",
+    content: "Share ideas, collaborate, and build together.",
     design: "community"
   },
   { 
     ...socialPlatforms[2], 
     handle: "thinkchains", 
-    metrics: { views: "950K", articles: 45 },
+    metrics: { views: "Active", articles: "Live" },
     focus: "Long-form content & analysis",
-    content: "45+ articles on blockchain architecture and AI implementation.",
+    content: "Articles on product, strategy, and execution.",
     design: "article"
   },
   { 
     ...socialPlatforms[3], 
     handle: "thinkchains", 
-    metrics: { views: "3.2M", connections: 91 },
+    metrics: { views: "Active", connections: "Open" },
     focus: "B2B networking & industry insights",
-    content: "Connect with leaders, access exclusive content, and join pro discussions.",
+    content: "Connect with founders, access insights, and join the conversation.",
     design: "network"
   },
   { 
     ...socialPlatforms[4], 
     handle: "thinkchains", 
-    metrics: { views: "1.5M", tweets: 124 },
+    metrics: { views: "Active", tweets: "Live" },
     focus: "Quick updates & trending topics",
-    content: "124+ tweets with realtime updates, news, and trending topics.",
+    content: "Regular posts with updates, news, and industry commentary.",
     design: "feed"
   },
   { 
     ...socialPlatforms[5], 
     handle: "thinkchains", 
-    metrics: { views: "4.1M", videos: 28 },
+    metrics: { views: "Active", videos: "Live" },
     focus: "Video tutorials & case studies",
-    content: "28 videos: tutorials, case studies, and educational content.",
+    content: "Tutorials, walkthroughs, and educational content.",
     design: "channel"
   },
 ];
@@ -800,17 +849,17 @@ const layer3Cards = [
   { 
     ...socialPlatforms[5], 
     handle: "thinkchains", 
-    metrics: { subscribers: 65, videos: 28, views: "4.1M" },
+    metrics: { subscribers: "Subscribe", videos: "Live", views: "Active" },
     focus: "Videos & tutorials",
-    content: "65K subs enjoying weekly how-tos and educational drops.",
+    content: "Watch our tutorials and educational content.",
     design: "compact"
   },
   { 
     ...socialPlatforms[2], 
     handle: "thinkchains", 
-    metrics: { articles: 45, readers: 68, views: "950K" },
+    metrics: { articles: "Live", readers: "Read", views: "Active" },
     focus: "Technical articles & insights",
-    content: "45 articles read by 68K+ readers each month.",
+    content: "Read our latest articles on product and strategy.",
     design: "minimal"
   },
 ];
@@ -818,8 +867,8 @@ const layer3Cards = [
 const scalerCard = {
   ...socialPlatforms[0],
   handle: "thinkchains",
-  description: "Follow us for the latest updates on blockchain innovation, AI breakthroughs, and digital transformation insights. We share visual stories, behind-the-scenes content, and real-time updates from our innovation labs.",
-  metrics: { engagement: 92, followers: 85, posts: 124 },
+  description: "Follow us for updates on product, strategy, and building what matters. We share project stories, behind-the-scenes content, and insights from working with founders.",
+  metrics: { engagement: 78, followers: "Active", posts: "Active" },
   focus: "Visual storytelling & brand moments",
-  content: "Join 85K+ followers for daily inspiration, product launches, team spotlights, and exclusive content from our innovation journey."
+  content: "Project updates, team spotlights, and insights from our work with founders."
 };

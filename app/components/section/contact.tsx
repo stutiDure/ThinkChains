@@ -313,26 +313,26 @@ export default function Contact() {
 
           {/* Yellow Contact Information Band - Joining directly below with no gap */}
           <div className="w-full bg-[#ffcc00] font-reckoner px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 py-8 sm:py-10 md:py-12 lg:py-14">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 sm:gap-8 md:gap-10 lg:gap-12 text-black" style={{ fontFamily: 'sans-serif' }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 sm:gap-8 md:gap-10 lg:gap-12 text-black font-reckoner">
               <div className="space-y-2">
-                <div className="text-sm sm:text-base md:text-lg lg:text-xl font-bold uppercase tracking-wider">New project</div>
-                <div className="text-sm sm:text-base md:text-lg break-words">sales@thinkchains.com</div>
+                <div className="text-lg sm:text-base md:text-xl lg:text-2xl font-bold uppercase tracking-wider">New project</div>
+                <div className="text-lg sm:text-base md:text-xl break-words">aditya@thinkchains.com</div>
               </div>
               <div className="space-y-2">
-                <div className="text-sm sm:text-base md:text-lg lg:text-xl font-bold uppercase tracking-wider">Support</div>
-                <div className="text-sm sm:text-base md:text-lg break-words">support@thinkchains.com</div>
+                <div className="text-lg sm:text-base md:text-xl lg:text-2xl font-bold uppercase tracking-wider">Support</div>
+                <div className="text-lg sm:text-base md:text-xl break-words">aditya@thinkchains.com</div>
               </div>
               <div className="space-y-2 sm:col-span-2 lg:col-span-1">
-                <div className="text-sm sm:text-base md:text-lg lg:text-xl font-bold uppercase tracking-wider">Location</div>
-                <div className="text-sm sm:text-base md:text-lg break-words">123 Innovation Street, Tech City, TC 12345, United States</div>
+                <div className="text-lg sm:text-base md:text-xl lg:text-2xl font-bold uppercase tracking-wider">Location</div>
+                <div className="text-lg sm:text-base md:text-xl break-words">Indore, Madhya Pradesh, Vijay Nagar, 453010</div>
               </div>
               <div className="space-y-2">
-                <div className="text-sm sm:text-base md:text-lg lg:text-xl font-bold uppercase tracking-wider">General</div>
-                <div className="text-sm sm:text-base md:text-lg break-words">info@thinkchains.com</div>
+                <div className="text-lg sm:text-base md:text-xl lg:text-2xl font-bold uppercase tracking-wider">General</div>
+                <div className="text-lg sm:text-base md:text-xl break-words">aditya@thinkchains.com</div>
               </div>
               <div className="space-y-2">
-                <div className="text-sm sm:text-base md:text-lg lg:text-xl font-bold uppercase tracking-wider">Call us</div>
-                <div className="text-sm sm:text-base md:text-lg break-words">+1 (555) 123-4567</div>
+                <div className="text-lg sm:text-base md:text-xl lg:text-2xl font-bold uppercase tracking-wider">Call us</div>
+                <div className="text-lg sm:text-base md:text-xl break-words">+91 9130080178</div>
               </div>
             </div>
           </div>
@@ -345,27 +345,27 @@ export default function Contact() {
               <svg className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white flex-shrink-0 mx-2 sm:mx-3 md:mx-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
               </svg>
-              <h2 className="text-3xl font-reckoner sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold text-[#ffcc00] uppercase tracking-tight" style={{ fontFamily: 'sans-serif' }}>
+              <h2 className="text-4xl font-reckoner sm:text-3xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold text-[#ffcc00] uppercase tracking-tight">
                 INQUIRIES
               </h2>
             </div>
 
             {/* Description Text - Yellow/white for visibility */}
-            <div className="max-w-3xl space-y-4 font-reckoner sm:space-y-5 md:space-y-6 lg:space-y-8 mb-8 sm:mb-10 md:mb-12" style={{ fontFamily: 'sans-serif' }}>
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl text- leading-relaxed">
-                THINKCHAINS IS AN AWARD-WINNING TECHNOLOGY COMPANY, SPECIALISED IN BLOCKCHAIN INNOVATION, WEB3 DEVELOPMENT AND STRATEGIC CONSULTING.
+            <div className="max-w-3xl space-y-4 sm:space-y-5 md:space-y-6 lg:space-y-8 mb-8 sm:mb-10 md:mb-12 uppercase" style={{ fontFamily: 'sans-serif' }}>
+              <p className="text-lg sm:text-base font-reckoner md:text-2xl lg:text-4xl text-white/90 leading-relaxed">
+                WE WORK WITH FOUNDERS AND TEAMS WHO WANT TO TURN IDEAS INTO REALITY—WHETHER THAT&apos;S NAILING THE INVESTOR STORY, MAKING THE RIGHT TECHNICAL CALLS, OR SHARPENING PRODUCT AND MARKET POSITION.
               </p>
-              <p className="text-xs sm:text-sm md:text-base lg:text-lg text-[#ffcc00] leading-relaxed">
-                If you&apos;re ready to build a scalable, future-proof blockchain solution, fill out an inquiry form. Still need some advice, or another opinion to bounce out some ideas? Just drop us a line.
+              <p className="text-base sm:text-sm font-reckoner md:text-lg lg:text-2xl text-[#ffcc00] leading-relaxed">
+                HAVE A PROJECT IN MIND? NEED A SOUNDING BOARD? DROP US A LINE. WE REPLY TO EVERY INQUIRY.
               </p>
             </div>
 
             {/* Call-to-Action Buttons - Matching reference: one solid, one outlined */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6">
-              <button className="px-6 sm:px-8 md:px-10 py-2.5 sm:py-3 md:py-4 bg-[#ffcc00] text-black font-bold text-xs sm:text-sm md:text-base uppercase tracking-wider hover:bg-[#ffd633] transition-colors duration-300" style={{ fontFamily: 'sans-serif' }}>
+              <button className="px-6 sm:px-8 md:px-10 py-2.5 sm:py-3 md:py-4 bg-[#ffcc00] text-black font-bold text-lg sm:text-md md:text-xl uppercase tracking-wider hover:bg-[#ffd633] transition-colors duration-300 font-reckoner">
                 PROJECT INQUIRY
               </button>
-              <button className="px-6 sm:px-8 md:px-10 py-2.5 sm:py-3 md:py-4 bg-transparent border-2 border-[#ffcc00] text-[#ffcc00] font-bold text-xs sm:text-sm md:text-base uppercase tracking-wider hover:bg-[#ffcc00] hover:text-black transition-all duration-300" style={{ fontFamily: 'sans-serif' }}>
+              <button className="px-6 sm:px-8 md:px-10 py-2.5 sm:py-3 md:py-4 bg-transparent border-2 border-[#ffcc00] text-[#ffcc00] font-bold text-xs sm:text-sm md:text-base uppercase tracking-wider hover:bg-[#ffcc00] hover:text-black transition-all duration-300 font-reckoner">
                 WORKING AT THINKCHAINS
               </button>
             </div>

@@ -9,21 +9,21 @@ type SignalItem = {
 };
 
 const ITEMS: SignalItem[] = [
-  { label: "AI Strategy", sublabel: "Roadmaps • Models • Execution", tone: "strategy" },
-  { label: "Web3", sublabel: "Protocols • Product • Growth", tone: "product" },
-  { label: "Design Systems", sublabel: "Components • Tokens • Scale", tone: "systems" },
-  { label: "Product Thinking", sublabel: "Discovery • Metrics • Delivery", tone: "product" },
-  { label: "Scalable Infra", sublabel: "Reliability • Cost • Speed", tone: "systems" },
-  { label: "UX Research", sublabel: "Insights • Journeys • Tests", tone: "strategy" },
-  { label: "Motion Design", sublabel: "Narrative • Micro-UX • Polish", tone: "product" },
-  { label: "Brand Systems", sublabel: "Identity • Voice • Consistency", tone: "systems" },
-  { label: "Cloud Native", sublabel: "K8s • Observability • CI/CD", tone: "systems" },
-  { label: "Security", sublabel: "Threats • Hardening • Trust", tone: "security" },
-  { label: "Performance", sublabel: "Core Web Vitals • Tuning", tone: "security" },
-  { label: "Accessibility", sublabel: "WCAG • Inclusive UI", tone: "strategy" },
-  { label: "Growth", sublabel: "Funnels • Retention • SEO", tone: "product" },
-  { label: "Automation", sublabel: "Workflows • AI Ops • Scale", tone: "systems" },
-  { label: "Innovation", sublabel: "R&D • Experiments • Launch", tone: "strategy" },
+  { label: "Early-Stage Launch", sublabel: "Concept • Roadmap • First Ship", tone: "strategy" },
+  { label: "Investor Story", sublabel: "Narrative • Deck • Pitch", tone: "strategy" },
+  { label: "Technical Guidance", sublabel: "Stack • Architecture • Scale", tone: "systems" },
+  { label: "System Design", sublabel: "Reliability • Trade-offs • Build", tone: "systems" },
+  { label: "Product Focus", sublabel: "Scope • Prioritisation • Ship", tone: "product" },
+  { label: "Market Position", sublabel: "Category • Message • GTM", tone: "strategy" },
+  { label: "Venture Building", sublabel: "Launch • Iterate • Grow", tone: "product" },
+  { label: "Strategic Narrative", sublabel: "Vision • Story • Alignment", tone: "strategy" },
+  { label: "Tech Due Diligence", sublabel: "Review • Risk • Readiness", tone: "security" },
+  { label: "Roadmap & Priorities", sublabel: "What to Build • When • Why", tone: "product" },
+  { label: "Scalable Systems", sublabel: "Cost • Performance • Reliability", tone: "systems" },
+  { label: "Pitch Craft", sublabel: "Story • Slides • Room Ready", tone: "strategy" },
+  { label: "Execution", sublabel: "Build • Ship • Learn", tone: "product" },
+  { label: "Trust & Security", sublabel: "Advisory • Hardening • Trust", tone: "security" },
+  { label: "Category Leadership", sublabel: "Differentiation • Launch • Own It", tone: "strategy" },
 ];
 
 const Pattern = memo(function Pattern({
@@ -159,6 +159,9 @@ export default function TrustedSignals() {
       <div className="relative z-10 text-center mt-2 mb-6 md:mb-8">
         <p className="text-xs md:text-sm uppercase tracking-[0.3em] md:tracking-[0.4em] text-white/60 font-syne">
           WE WORK WITH
+        </p>
+        <p className="mt-2 text-[10px] md:text-xs uppercase tracking-[0.2em] text-[#ffcc00] font-syne">
+          Scroll or swipe to explore
         </p>
       </div>
 
