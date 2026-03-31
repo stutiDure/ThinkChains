@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
@@ -325,7 +325,14 @@ export default function ImpactNarratives() {
         <div className="hidden md:flex w-[45%] md:sm:w-[40%] md:w-[35%] lg:w-[30%] relative z-30 items-center justify-start pl-8 md:sm:pl-12 md:pl-16 lg:pl-20">
           {/* Categories List - Vertical Layout */}
           <div className="relative w-full h-full flex flex-col justify-center gap-8 md:sm:gap-8 md:gap-10 lg:gap-12">
-            {IMPACT_ITEMS.map((item, index) => (
+            {IMPACT_ITEMS.map((item, index) => {
+              // Create a subtle ")" arc: middle items push right most, top/bottom less.
+              const mid = (IMPACT_ITEMS.length - 1) / 2;
+              const t = mid === 0 ? 0 : (index - mid) / mid; // -1..1
+              const arcX = Math.round(190 * (1 - t * t)); // px (stronger curve)
+              const activeBoost = index === activeIndex ? 20 : 0;
+
+              return (
               <div
                 key={item.id}
                 ref={(el) => {
@@ -337,18 +344,29 @@ export default function ImpactNarratives() {
                 }}
               >
                 <div
-                  className="impact-category-text text-3xl md:sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-reckoner font-bold transition-all duration-500 cursor-pointer whitespace-nowrap"
+                  className="impact-category-text text-3xl md:sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-reckoner font-bold transition-all duration-500 cursor-pointer whitespace-nowrap inline-flex items-center gap-3 lg:gap-4"
                   style={{
                     color: index === activeIndex ? "#facc15" : "#ffffff",
-                    transform: index === activeIndex ? "translateX(20px) scale(1.1)" : "translateX(0) scale(1)",
+                    transform: `translateX(${arcX + activeBoost}px) scale(${index === activeIndex ? 1.08 : 1})`,
                     textShadow: index === activeIndex ? "0 0 40px rgba(250,204,21,0.6)" : "0 0 10px rgba(255,255,255,0.1)",
                     opacity: index === activeIndex ? 1 : 0.5,
                   }}
                 >
+                  <span
+                    className="text-xl md:text-2xl lg:text-3xl xl:text-4xl leading-none"
+                    style={{
+                      color: index === activeIndex ? "#facc15" : "rgba(255,255,255,0.5)",
+                      textShadow: index === activeIndex ? "0 0 18px rgba(250,204,21,0.65)" : "0 0 8px rgba(255,255,255,0.18)",
+                    }}
+                    aria-hidden
+                  >
+                    ↗
+                  </span>
                   {item.category}
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
@@ -370,17 +388,60 @@ export default function ImpactNarratives() {
                 pointerEvents: index === activeIndex ? 'auto' : 'none',
               }}
             >
-              {/* Collage Container with SVG Curved Shapes */}
-                <div className="relative w-full max-w-full md:max-w-4xl">
-                <div className="impact-collage-row relative w-full h-[280px] sm:h-[350px] md:h-[500px] md:sm:h-[600px] md:h-[700px] flex items-center justify-center gap-2 sm:gap-3 md:gap-4 md:sm:gap-6 md:gap-8">
-                  
-                  {/* Primary Image - Left with Curved Shape */}
-                  <div className="relative w-[48%] sm:w-[47%] md:w-[45%] h-full">
-                    <div 
-                      className="relative w-full h-full overflow-hidden"
-                      style={{ 
-                        clipPath: 'polygon(0 8%, 92% 0%, 100% 92%, 0% 100%)',
-                        borderRadius: '12px 4px 4px 12px sm:16px 6px 6px 16px md:24px 8px 8px 24px',
+              {/* Collage Container with staggered shaped images and message tags */}
+              <div className="relative w-full max-w-full md:max-w-4xl">
+                <div className="impact-collage-row relative w-full h-[280px] sm:h-[350px] md:h-[500px] md:sm:h-[600px] md:h-[700px]">
+                  {/* Two separate decorative frames to fill empty space cleanly */}
+                  <div className="hidden md:block pointer-events-none absolute inset-0 z-0">
+                    {/* Left frame */}
+                    <div
+                      className="absolute left-[-4%] top-[2%] w-[49%] h-[96%] border border-white/16 bg-gradient-to-br from-white/[0.1] via-white/[0.04] to-transparent shadow-[0_20px_56px_rgba(0,0,0,0.35)]"
+                      style={{
+                        borderRadius: "38px 38px 120px 38px",
+                        clipPath: "polygon(0% 0%, 100% 0%, 100% 82%, 82% 100%, 0% 100%)",
+                      }}
+                    >
+                      <div
+                        className="absolute inset-[8%] rounded-[1.5rem] opacity-24"
+                        style={
+                          {
+                            backgroundImage:
+                              "repeating-linear-gradient(135deg, rgba(255,255,255,0.28) 0, rgba(255,255,255,0.28) 1px, transparent 1px, transparent 14px)",
+                          } as CSSProperties
+                        }
+                      />
+                      <div className="absolute inset-[6%] rounded-[1.6rem] border border-[#facc15]/24" />
+                    </div>
+
+                    {/* Right frame */}
+                    <div
+                      className="absolute right-[-4%] top-[2%] w-[49%] h-[96%] border border-white/16 bg-gradient-to-bl from-[#facc15]/16 via-white/[0.04] to-transparent shadow-[0_20px_56px_rgba(0,0,0,0.35)]"
+                      style={{
+                        borderRadius: "120px 38px 38px 38px",
+                        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 18% 100%, 0% 82%)",
+                      }}
+                    >
+                      <div
+                        className="absolute inset-[8%] rounded-[1.5rem] opacity-22"
+                        style={
+                          {
+                            backgroundImage:
+                              "radial-gradient(rgba(255,255,255,0.65) 1px, transparent 1px)",
+                            backgroundSize: "16px 16px",
+                          } as CSSProperties
+                        }
+                      />
+                      <div className="absolute inset-[6%] rounded-[1.6rem] border border-[#facc15]/26" />
+                    </div>
+                  </div>
+
+                  {/* Primary Image - slightly upper card */}
+                  <div className="absolute left-[4%] sm:left-[6%] md:left-[8%] top-[4%] sm:top-[6%] md:top-[8%] w-[56%] sm:w-[54%] md:w-[52%] h-[72%] sm:h-[74%] md:h-[76%] rotate-[-3deg] z-10">
+                    <div
+                      className="relative w-full h-full overflow-hidden border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.45)]"
+                      style={{
+                        borderRadius: "38px 38px 120px 38px",
+                        clipPath: "polygon(0% 0%, 100% 0%, 100% 82%, 82% 100%, 0% 100%)",
                       }}
                     >
                       <Image
@@ -389,100 +450,19 @@ export default function ImpactNarratives() {
                         fill
                         className="object-cover transition-transform duration-700 hover:scale-110"
                         priority={index === 0}
-                        sizes="(max-width: 640px) 48vw, (max-width: 768px) 47vw, 500px"
+                        sizes="(max-width: 640px) 62vw, (max-width: 1024px) 54vw, 500px"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-br from-black/20 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-transparent to-black/30" />
                     </div>
                   </div>
 
-                  {/* Tags Between Images - Professional Teleboom Style with Metallic Colors */}
-                  {item.stats && item.stats.length > 0 && (
-                    <>
-                      {/* Top Tag - Professional Rounded Rectangle */}
-                      {item.stats[0] && (
-                        <div 
-                          data-tag
-                          className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 p-2 sm:p-2.5 md:p-3 w-auto min-w-[140px] sm:min-w-[160px] md:min-w-[200px] h-auto min-h-[50px] sm:min-h-[60px] md:min-h-[64px] z-30 rounded-lg sm:rounded-xl border transition-all duration-300 hover:scale-105 flex items-center gap-2 sm:gap-2.5 md:gap-3"
-                          style={{ 
-                            background: item.stats[0].color === 'yellow' || item.stats[0].color === '#fbbf24'
-                              ? 'linear-gradient(135deg, #fcd34d 0%, #fbbf24 25%, #f59e0b 50%, #fbbf24 75%, #fcd34d 100%)'
-                              : item.stats[0].color === 'black' || item.stats[0].color === '#000000'
-                              ? 'linear-gradient(135deg, #4b5563 0%, #1f2937 25%, #111827 50%, #000000 75%, #1f2937 100%)'
-                              : 'linear-gradient(135deg, #ffffff 0%, #f8fafc 25%, #e2e8f0 50%, #cbd5e1 75%, #f1f5f9 100%)',
-                            borderColor: item.stats[0].color === 'white' || item.stats[0].color === '#ffffff' 
-                              ? 'rgba(0,0,0,0.2)' 
-                              : item.stats[0].color === 'yellow'
-                              ? 'rgba(252, 211, 77, 0.6)'
-                              : 'rgba(255,255,255,0.25)',
-                            boxShadow: item.stats[0].color === 'yellow' || item.stats[0].color === '#fbbf24'
-                              ? '0 10px 40px rgba(252, 211, 77, 0.6), inset 0 3px 6px rgba(255,255,255,0.5), inset 0 -3px 6px rgba(0,0,0,0.2), 0 0 20px rgba(252, 211, 77, 0.3)'
-                              : item.stats[0].color === 'black' || item.stats[0].color === '#000000'
-                              ? '0 10px 40px rgba(0, 0, 0, 0.8), inset 0 3px 6px rgba(255,255,255,0.2), inset 0 -3px 6px rgba(0,0,0,0.6), 0 0 15px rgba(75, 85, 99, 0.4)'
-                              : '0 10px 40px rgba(255, 255, 255, 0.5), inset 0 3px 6px rgba(255,255,255,1), inset 0 -3px 6px rgba(0,0,0,0.15), 0 0 20px rgba(255,255,255,0.3)',
-                          }}
-                        >
-                          {/* Icon */}
-                          <svg className={`w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 flex-shrink-0 ${item.stats[0].color === 'white' || item.stats[0].color === '#ffffff' ? 'text-gray-800' : 'text-white'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                          </svg>
-                          <div className="flex flex-col sm:flex-row gap-0.5 sm:gap-1">
-                            <div className={`text-base sm:text-lg md:text-xl md:sm:text-xl md:text-2xl font-bold ${item.stats[0].color === 'white' || item.stats[0].color === '#ffffff' ? 'text-gray-900' : 'text-white'}`} style={{ textShadow: item.stats[0].color === 'white' ? 'none' : '0 2px 8px rgba(0,0,0,0.3)' }}>
-                              {item.stats[0].value}
-                            </div>
-                            <div className={`text-[10px] sm:text-xs md:sm:text-xs md:text-sm font-semibold tracking-wider uppercase leading-tight ${item.stats[0].color === 'white' || item.stats[0].color === '#ffffff' ? 'text-gray-700' : 'text-white/95'}`}>
-                              {item.stats[0].label}
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                      
-                      {/* Left Tag - Professional Rounded Rectangle */}
-                      {item.stats[1] && (
-                        <div 
-                          data-tag
-                          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 sm:-translate-x-1/3 md:-translate-x-1/2 px-2 sm:px-2.5 md:px-2 py-4 sm:py-5 md:py-6 w-auto min-w-[120px] sm:min-w-[140px] md:min-w-[180px] h-auto min-h-[50px] sm:min-h-[60px] md:min-h-[64px] z-30 rounded-bl-lg sm:rounded-bl-xl rounded-tr-lg sm:rounded-tr-xl border transition-all duration-300 hover:scale-105 flex items-center gap-2 sm:gap-2.5 md:gap-3"
-                          style={{ 
-                            background: item.stats[1].color === 'yellow' || item.stats[1].color === '#fbbf24'
-                              ? 'linear-gradient(135deg, #fcd34d 0%, #fbbf24 25%, #f59e0b 50%, #fbbf24 75%, #fcd34d 100%)'
-                              : item.stats[1].color === 'black' || item.stats[1].color === '#000000'
-                              ? 'linear-gradient(135deg, #4b5563 0%, #1f2937 25%, #111827 50%, #000000 75%, #1f2937 100%)'
-                              : 'linear-gradient(135deg, #ffffff 0%, #f8fafc 25%, #e2e8f0 50%, #cbd5e1 75%, #f1f5f9 100%)',
-                            borderColor: item.stats[1].color === 'white' || item.stats[1].color === '#ffffff' 
-                              ? 'rgba(0,0,0,0.2)' 
-                              : item.stats[1].color === 'yellow'
-                              ? 'rgba(252, 211, 77, 0.6)'
-                              : 'rgba(255,255,255,0.25)',
-                            boxShadow: item.stats[1].color === 'yellow' || item.stats[1].color === '#fbbf24'
-                              ? '0 10px 40px rgba(252, 211, 77, 0.6), inset 0 3px 6px rgba(255,255,255,0.5), inset 0 -3px 6px rgba(0,0,0,0.2), 0 0 20px rgba(252, 211, 77, 0.3)'
-                              : item.stats[1].color === 'black' || item.stats[1].color === '#000000'
-                              ? '0 10px 40px rgba(0, 0, 0, 0.8), inset 0 3px 6px rgba(255,255,255,0.2), inset 0 -3px 6px rgba(0,0,0,0.6), 0 0 15px rgba(75, 85, 99, 0.4)'
-                              : '0 10px 40px rgba(255, 255, 255, 0.5), inset 0 3px 6px rgba(255,255,255,1), inset 0 -3px 6px rgba(0,0,0,0.15), 0 0 20px rgba(255,255,255,0.3)',
-                          }}
-                        >
-                          {/* Icon */}
-                          <svg className={`w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 flex-shrink-0 ${item.stats[1].color === 'white' || item.stats[1].color === '#ffffff' ? 'text-gray-800' : 'text-white'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                          </svg>
-                          <div className="flex flex-col sm:flex-row gap-0.5 sm:gap-1">
-                            <div className={`text-sm sm:text-base md:text-lg md:sm:text-lg md:text-xl font-bold ${item.stats[1].color === 'white' || item.stats[1].color === '#ffffff' ? 'text-gray-900' : 'text-white'}`} style={{ textShadow: item.stats[1].color === 'white' ? 'none' : '0 2px 8px rgba(0,0,0,0.3)' }}>
-                              {item.stats[1].value}
-                            </div>
-                            <div className={`text-[10px] sm:text-xs md:sm:text-xs md:text-sm font-semibold tracking-wider uppercase leading-tight ${item.stats[1].color === 'white' || item.stats[1].color === '#ffffff' ? 'text-gray-700' : 'text-white/95'}`}>
-                              {item.stats[1].label}
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </>
-                  )}
-
-                  {/* Secondary Image - Right with Curved Shape */}
-                  <div className="relative w-[48%] sm:w-[47%] md:w-[45%] h-full">
-                    <div 
-                      className="relative w-full h-full overflow-hidden"
-                      style={{ 
-                        clipPath: 'polygon(8% 0%, 100% 8%, 100% 100%, 0% 92%)',
-                        borderRadius: '4px 12px 12px 4px sm:6px 16px 16px 6px md:8px 24px 24px 8px',
+                  {/* Secondary Image - slightly lower card */}
+                  <div className="absolute right-[3%] sm:right-[5%] md:right-[8%] bottom-[2%] sm:bottom-[5%] md:bottom-[8%] w-[56%] sm:w-[54%] md:w-[52%] h-[72%] sm:h-[74%] md:h-[76%] rotate-[3deg] z-10">
+                    <div
+                      className="relative w-full h-full overflow-hidden border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.45)]"
+                      style={{
+                        borderRadius: "120px 38px 38px 38px",
+                        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 18% 100%, 0% 82%)",
                       }}
                     >
                       <Image
@@ -491,45 +471,47 @@ export default function ImpactNarratives() {
                         fill
                         className="object-cover transition-transform duration-700 hover:scale-110"
                         priority={index === 0}
-                        sizes="(max-width: 640px) 48vw, (max-width: 768px) 47vw, 500px"
+                        sizes="(max-width: 640px) 62vw, (max-width: 1024px) 54vw, 500px"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-tl from-black/20 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-tl from-black/25 via-transparent to-black/20" />
                     </div>
                   </div>
 
-                  {/* Bottom Tag - Professional Rounded Rectangle */}
-                  {item.stats && item.stats.length > 2 && item.stats[2] && (
-                    <div 
+                  {/* Top message tag - above first image */}
+                  {item.stats && item.stats[0] && (
+                    <div
                       data-tag
-                      className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 p-2 sm:p-3 md:p-4 w-auto min-w-[140px] sm:min-w-[160px] md:min-w-[200px] h-auto min-h-[50px] sm:min-h-[60px] md:min-h-[64px] z-30 rounded-tl-lg sm:rounded-tl-lg md:rounded-tl-lg rounded-br-lg border transition-all duration-300 hover:scale-105 flex items-center gap-2 sm:gap-2.5 md:gap-3"
-                      style={{ 
-                        background: item.stats[2].color === 'yellow' || item.stats[2].color === '#fbbf24'
-                          ? 'linear-gradient(135deg, #fcd34d 0%, #fbbf24 25%, #f59e0b 50%, #fbbf24 75%, #fcd34d 100%)'
-                          : item.stats[2].color === 'black' || item.stats[2].color === '#000000'
-                          ? 'linear-gradient(135deg, #4b5563 0%, #1f2937 25%, #111827 50%, #000000 75%, #1f2937 100%)'
-                          : 'linear-gradient(135deg, #ffffff 0%, #f8fafc 25%, #e2e8f0 50%, #cbd5e1 75%, #f1f5f9 100%)',
-                        borderColor: item.stats[2].color === 'white' || item.stats[2].color === '#ffffff' 
-                          ? 'rgba(0,0,0,0.2)' 
-                          : item.stats[2].color === 'yellow'
-                          ? 'rgba(252, 211, 77, 0.6)'
-                          : 'rgba(255,255,255,0.25)',
-                        boxShadow: item.stats[2].color === 'yellow' || item.stats[2].color === '#fbbf24'
-                          ? '0 10px 40px rgba(252, 211, 77, 0.6), inset 0 3px 6px rgba(255,255,255,0.5), inset 0 -3px 6px rgba(0,0,0,0.2), 0 0 20px rgba(252, 211, 77, 0.3)'
-                          : item.stats[2].color === 'black' || item.stats[2].color === '#000000'
-                          ? '0 10px 40px rgba(0, 0, 0, 0.8), inset 0 3px 6px rgba(255,255,255,0.2), inset 0 -3px 6px rgba(0,0,0,0.6), 0 0 15px rgba(75, 85, 99, 0.4)'
-                          : '0 10px 40px rgba(255, 255, 255, 0.5), inset 0 3px 6px rgba(255,255,255,1), inset 0 -3px 6px rgba(0,0,0,0.15), 0 0 20px rgba(255,255,255,0.3)',
-                      }}
+                      className="absolute left-[10%] sm:left-[12%] md:left-[14%] top-0 -translate-y-1/2 z-30 max-w-[65%] rounded-2xl border border-white/20 bg-black/75 backdrop-blur-md px-3 py-2 sm:px-4 sm:py-2.5 shadow-[0_12px_35px_rgba(0,0,0,0.5)]"
                     >
-                      {/* Icon */}
-                      <svg className={`w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 flex-shrink-0 ${item.stats[2].color === 'white' || item.stats[2].color === '#ffffff' ? 'text-gray-800' : 'text-white'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                      </svg>
-                      <div className="flex flex-col sm:flex-row gap-0.5 sm:gap-1">
-                        <div className={`text-sm sm:text-base md:text-lg md:sm:text-lg md:text-xl font-bold ${item.stats[2].color === 'white' || item.stats[2].color === '#ffffff' ? 'text-gray-900' : 'text-white'}`} style={{ textShadow: item.stats[2].color === 'white' ? 'none' : '0 2px 8px rgba(0,0,0,0.3)' }}>
-                          {item.stats[2].value}
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <span className="inline-flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-[#facc15] text-black">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M8 10h8M8 14h5m-9 7l2.5-2.5a2 2 0 011.414-.586H19a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2h1.086A2 2 0 017.5 20.5L10 23z" />
+                          </svg>
+                        </span>
+                        <div className="leading-tight">
+                          <div className="text-sm sm:text-base md:text-lg font-semibold text-white">{item.stats[0].value}</div>
+                          <div className="text-[10px] sm:text-xs uppercase tracking-wider text-white/75">{item.stats[0].label}</div>
                         </div>
-                        <div className={`text-[10px] sm:text-xs md:sm:text-xs md:text-sm font-semibold tracking-wider uppercase leading-tight ${item.stats[2].color === 'white' || item.stats[2].color === '#ffffff' ? 'text-gray-700' : 'text-white/95'}`}>
-                          {item.stats[2].label}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Bottom message tag - below second image */}
+                  {item.stats && item.stats[1] && (
+                    <div
+                      data-tag
+                      className="absolute right-[8%] sm:right-[10%] md:right-[14%] bottom-0 translate-y-1/2 z-30 max-w-[65%] rounded-2xl border border-white/20 bg-black/75 backdrop-blur-md px-3 py-2 sm:px-4 sm:py-2.5 shadow-[0_12px_35px_rgba(0,0,0,0.5)]"
+                    >
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <span className="inline-flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-[#facc15] text-black">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M12 8v8m4-4H8m13-7H3a2 2 0 00-2 2v9.2a2 2 0 002 2h2.4L8.5 22l3.1-3.8H21a2 2 0 002-2V7a2 2 0 00-2-2z" />
+                          </svg>
+                        </span>
+                        <div className="leading-tight">
+                          <div className="text-sm sm:text-base md:text-lg font-semibold text-white">{item.stats[1].value}</div>
+                          <div className="text-[10px] sm:text-xs uppercase tracking-wider text-white/75">{item.stats[1].label}</div>
                         </div>
                       </div>
                     </div>

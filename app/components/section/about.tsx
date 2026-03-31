@@ -9,11 +9,11 @@ gsap.registerPlugin(ScrollTrigger);
 // Full quote as words for word-by-word scroll reveal (no icons/images)
 // Grouped to prevent awkward line breaks on mobile
 const ABOUT_WORDS = [
-  "ThinkChains", "partners", "with", "founders", "and", "teams", "to", "turn", 
-  "ideas", "into", "reality.", "We", "help", "you",
-  "craft", "your", "investor", "narrative,", "make",  
-  "sound", "technical", "and", "product", "decisions", "&", "position", "your", "company", 
-  "in", "the", "market.", "From", "concept", "to", "launch.",
+  "I’m", "Aditya", "Desai—Founder", "of", "several companies",
+  "I", "help", "brands", "launch", "Blockchain", "&", "AI", "products",
+  "Scaled", "products", "from", "0→1", "and", "1→100.", 
+  "Helped", "projects", "raise", "$10M+", "via", "token", "launches", "&", "launchpads.",
+   "building", "the", "future", "of", "Blockchain", "x", "AI.",
 ];
 
 const FILL_STYLE = {
@@ -50,7 +50,7 @@ export default function About() {
         });
       } else {
         // One word reveals per segment of scroll for clarity and slowness
-        const scrollVh = 1800; // increased for slower, smoother animation
+        const scrollVh = 2200; // slightly slower overall scroll pacing
         const timeline = gsap.timeline({ paused: true });
         words.forEach((el, i) => {
           timeline.to(
@@ -68,7 +68,7 @@ export default function About() {
           trigger: aboutSection,
           start: "top top",
           end: `+=${scrollVh}vh`,
-          scrub: 2.5,
+          scrub: 3,
           pin: true,
           pinSpacing: true,
           animation: timeline,

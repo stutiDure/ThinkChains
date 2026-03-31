@@ -153,12 +153,12 @@ const ECOSYSTEM_CONTENT_SETS = [
   },
 ];
 
-// Per content set, per card: only yellow / white / black. Text and kinetic lines follow for visibility.
+// Per content set, per card: balanced palette so next/prev states do not feel overly yellow.
 const CARD_THEMES: ("yellow" | "black" | "white")[][] = [
-  ["yellow", "yellow", "white", "white", "yellow", "yellow"],
-  ["black", "yellow", "black", "white", "yellow", "black"],
-  ["yellow", "black", "white", "black", "black", "yellow"],
-  ["black", "white", "yellow", "yellow", "white", "black"],
+  ["yellow", "black", "white", "black", "white", "yellow"],
+  ["black", "yellow", "black", "white", "yellow", "white"],
+  ["white", "black", "yellow", "black", "white", "yellow"],
+  ["black", "white", "yellow", "black", "yellow", "white"],
 ];
 
 function getCardThemeStyles(theme: "yellow" | "black" | "white") {

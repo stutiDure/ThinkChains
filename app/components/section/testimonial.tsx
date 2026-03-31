@@ -12,46 +12,46 @@ type Testimonial = {
 
 const TESTIMONIALS: Testimonial[] = [
   {
-    name: "Emily Carter",
-    role: "Founder, Nexus Labs",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=500&fit=crop",
+    name: "Chain Safe",
+    role: "Blockchain Infrastructure Partner",
+    image: "/testimonials/testi1.WebP",
     quote:
-      "Think Chains brings rare strategic clarity. Their thinking reshaped how we build and scale.",
+      "ThinkChains brought sharp technical direction and execution clarity. Their guidance helped us move faster without compromising quality.",
   },
   {
-    name: "Daniel Moore",
-    role: "CEO, QuantumWorks",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop",
+    name: "Decubate",
+    role: "Launchpad & Fundraising Platform",
+    image: "/testimonials/testi2.WebP",
     quote:
-      "Every interaction felt intentional. Deep tech understanding with executive intuition.",
+      "From positioning to go-to-market decisions, the support was practical, senior, and outcome-focused.",
   },
   {
-    name: "Sophia Lin",
-    role: "Product Lead, Axiom AI",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=500&fit=crop",
+    name: "Evelon",
+    role: "Digital Assets Platform",
+    image: "/testimonials/testi3.WebP",
     quote:
-      "They don't just advise — they architect outcomes.",
+      "They do not just advise; they help shape the right product and system decisions at the right time.",
   },
   {
-    name: "Marcus Reed",
-    role: "CTO, BlockForge",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=500&fit=crop",
+    name: "Luna Rush",
+    role: "Web3 Gaming Venture",
+    image: "/testimonials/testi4.WebP",
     quote:
-      "One of the most intellectually rigorous teams I've worked with.",
+      "Excellent strategic partner for early-stage execution. Strong grasp of both user value and technical depth.",
   },
   {
-    name: "Ava Thompson",
-    role: "Investor",
-    image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=500&fit=crop",
+    name: "Seedify",
+    role: "Web3 Incubator & Launchpad",
+    image: "/testimonials/testi5.WebP",
     quote:
-      "Exceptional pattern recognition across markets and technology.",
+      "The team helped us tighten narrative, accelerate delivery, and stay focused on what actually drives growth.",
   },
   {
-    name: "Oliver Grant",
-    role: "VP Strategy, Synapse",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=500&fit=crop",
+    name: "Product Advisory Client",
+    role: "Blockchain x AI Startup",
+    image: "/testimonials/testi2.WebP",
     quote:
-      "A rare blend of vision, execution, and restraint.",
+      "A rare mix of strategic thinking and hands-on execution. The impact showed up quickly in both speed and clarity.",
   },
 ];
 
