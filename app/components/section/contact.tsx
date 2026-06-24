@@ -5,6 +5,8 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import LazyCanvas from "../LazyCanvas";
+import { useGsapScrollContext } from "../../hooks/useGsapScrollContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,7 +22,7 @@ const WireBackground = () => {
 
   const lines = useMemo(() => {
     const lineElements = [];
-    for (let i = 0; i < 120; i++) {
+    for (let i = 0; i < 48; i++) {
       const points = [];
       const r = (a: number, b: number) => ((a * 9301 + b * 49297) % 233280) / 233280;
       points.push(
@@ -212,10 +214,8 @@ export default function Contact() {
   const lineRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useGsapScrollContext(sectionRef, () => {
     if (!sectionRef.current || !lineRef.current || !contentRef.current) return;
-
-    const ctx = gsap.context(() => {
       // Initially hide content and set initial states
       gsap.set(contentRef.current, { opacity: 0, visibility: 'hidden' });
       // thinner starting line
@@ -228,9 +228,10 @@ export default function Contact() {
           trigger: sectionRef.current,
           start: "top top",
           end: "+=300vh",
-          scrub: 1,
+          scrub: true,
           pin: true,
           pinSpacing: true,
+          anticipatePin: 0,
         }
       });
 
@@ -267,21 +268,18 @@ export default function Contact() {
         duration: 0.3,
       }, 2.7);
 
-    }, sectionRef);
-
-    return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative min-h-screen bg-black text-white overflow-hidden">
-      {/* Three.js Wire/Thread Background - Contained within section */}
-      <div className="absolute inset-0 z-0 opacity-80">
-        <Canvas camera={{ position: [0, 0, 25], fov: 60 }} dpr={[1, 1.5]}>
+    <section id="contact" ref={sectionRef} className="relative min-h-screen bg-black text-white overflow-hidden">
+      {/* Three.js Wire/Thread Background — lazy-mounted */}
+      <LazyCanvas className="absolute inset-0 z-0 opacity-80">
+        <Canvas camera={{ position: [0, 0, 25], fov: 60 }} dpr={[1, 1.25]} gl={{ powerPreference: "high-performance" }}>
           <ambientLight intensity={0.4} />
           <pointLight position={[15, 15, 15]} intensity={0.9} />
           <WireBackground />
         </Canvas>
-      </div>
+      </LazyCanvas>
 
       {/* Center White Line - Expands to cover screen */}
       <div

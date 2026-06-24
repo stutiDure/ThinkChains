@@ -4,9 +4,15 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
-import WireframeBrain from "../3d/WireframeBrain";
+import dynamic from "next/dynamic";
+import LazyCanvas from "../LazyCanvas";
+import { useGsapScrollContext } from "../../hooks/useGsapScrollContext";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const WireframeBrain = dynamic(() => import("../3d/WireframeBrain"), {
+  ssr: false,
+});
 
 const ECOSYSTEM = [
   {
@@ -238,95 +244,85 @@ export default function Ecosystem() {
     return () => cancelAnimationFrame(raf);
   }, [contentIndex]);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Filter out null values
-      const validCards = cardsRef.current.filter(Boolean) as HTMLElement[];
-      
-      if (validCards.length === 0) return;
+  useGsapScrollContext(sectionRef, () => {
+    const validCards = cardsRef.current.filter(Boolean) as HTMLElement[];
+    if (validCards.length === 0) return;
 
-      // RUNNING KINETIC LINES - Bright white traveling lines
-      validCards.forEach((card) => {
-        const lines = card.querySelectorAll(".kinetic-line");
-        const thickBars = card.querySelectorAll(".kinetic-bar");
+    validCards.forEach((card) => {
+      const lines = card.querySelectorAll(".kinetic-line");
+      const thickBars = card.querySelectorAll(".kinetic-bar");
 
-        const timelines: gsap.core.Timeline[] = [];
+      const timelines: gsap.core.Timeline[] = [];
 
-        // Create timeline for thin lines
-        if (lines.length > 0) {
-          const lineTl = gsap.timeline({
-            repeat: -1,
-            defaults: { ease: "none" },
-            scrollTrigger: {
-              trigger: card,
-              start: "top 85%",
-              end: "bottom top",
-              toggleActions: "play pause resume pause",
-            },
-          });
-
-          lines.forEach((line, index) => {
-            lineTl.fromTo(
-              line,
-              { 
-                x: "-150%",
-                y: "-150%",
-              },
-              {
-                x: "150%",
-                y: "150%",
-                duration: 4 + (index * 0.5),
-                ease: "none",
-              },
-              index * 0.3
-            );
-          });
-          timelines.push(lineTl);
-        }
-
-        // Create timeline for thick bars
-        if (thickBars.length > 0) {
-          const barTl = gsap.timeline({
-            repeat: -1,
-            defaults: { ease: "none" },
-            scrollTrigger: {
-              trigger: card,
-              start: "top 85%",
-              end: "bottom top",
-              toggleActions: "play pause resume pause",
-            },
-          });
-
-          thickBars.forEach((bar, index) => {
-            barTl.fromTo(
-              bar,
-              { 
-                x: "-200%",
-                y: "-200%",
-              },
-              {
-                x: "200%",
-                y: "200%",
-                duration: 5 + (index * 0.8),
-                ease: "none",
-              },
-              index * 0.5
-            );
-          });
-          timelines.push(barTl);
-        }
-
-        // Hover = accelerate motion
-        card.addEventListener("mouseenter", () => {
-          timelines.forEach(tl => tl.timeScale(2.5));
+      if (lines.length > 0) {
+        const lineTl = gsap.timeline({
+          repeat: -1,
+          defaults: { ease: "none" },
+          scrollTrigger: {
+            trigger: card,
+            start: "top 85%",
+            end: "bottom top",
+            toggleActions: "play pause resume pause",
+          },
         });
-        card.addEventListener("mouseleave", () => {
-          timelines.forEach(tl => tl.timeScale(1));
+
+        lines.forEach((line, index) => {
+          lineTl.fromTo(
+            line,
+            {
+              x: "-150%",
+              y: "-150%",
+            },
+            {
+              x: "150%",
+              y: "150%",
+              duration: 4 + index * 0.5,
+              ease: "none",
+            },
+            index * 0.3
+          );
         });
+        timelines.push(lineTl);
+      }
+
+      if (thickBars.length > 0) {
+        const barTl = gsap.timeline({
+          repeat: -1,
+          defaults: { ease: "none" },
+          scrollTrigger: {
+            trigger: card,
+            start: "top 85%",
+            end: "bottom top",
+            toggleActions: "play pause resume pause",
+          },
+        });
+
+        thickBars.forEach((bar, index) => {
+          barTl.fromTo(
+            bar,
+            {
+              x: "-200%",
+              y: "-200%",
+            },
+            {
+              x: "200%",
+              y: "200%",
+              duration: 5 + index * 0.8,
+              ease: "none",
+            },
+            index * 0.5
+          );
+        });
+        timelines.push(barTl);
+      }
+
+      card.addEventListener("mouseenter", () => {
+        timelines.forEach((tl) => tl.timeScale(2.5));
       });
-    }, sectionRef);
-
-    return () => ctx.revert();
+      card.addEventListener("mouseleave", () => {
+        timelines.forEach((tl) => tl.timeScale(1));
+      });
+    });
   }, []);
 
   const getCardClasses = (size: string) => {
@@ -357,12 +353,12 @@ export default function Ecosystem() {
       className="relative min-h-screen bg-black text-white overflow-x-hidden px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8 flex flex-col"
       aria-label="Think Chains Ecosystem"
     >
-      {/* Background Brain */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-70">
+      {/* Background Brain — mount only when section is near viewport */}
+      <LazyCanvas className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-70">
         <div className="w-[20rem] h-[20rem] sm:w-[28rem] sm:h-[28rem] md:w-[36rem] md:h-[36rem] lg:w-[44rem] lg:h-[44rem] xl:w-[52rem] xl:h-[52rem]">
           <WireframeBrain />
         </div>
-      </div>
+      </LazyCanvas>
 
       {/* Header */}
       <div className="relative z-10 max-w-5xl mx-auto text-center py-4 sm:py-6 md:py-8 lg:py-12 flex-shrink-0 px-4">

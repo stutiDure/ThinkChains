@@ -1,19 +1,18 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGsapScrollContext } from "../../hooks/useGsapScrollContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Full quote as words for word-by-word scroll reveal (no icons/images)
-// Grouped to prevent awkward line breaks on mobile
 const ABOUT_WORDS = [
-  "I’m", "Aditya", "Desai—Founder", "of", "several companies",
+  "I'm", "Aditya", "Desai—Founder", "of", "several companies",
   "I", "help", "brands", "launch", "Blockchain", "&", "AI", "products",
-  "Scaled", "products", "from", "0→1", "and", "1→100.", 
+  "Scaled", "products", "from", "0→1", "and", "1→100.",
   "Helped", "projects", "raise", "$10M+", "via", "token", "launches", "&", "launchpads.",
-   "building", "the", "future", "of", "Blockchain", "x", "AI.",
+  "building", "the", "future", "of", "Blockchain", "x", "AI.",
 ];
 
 const FILL_STYLE = {
@@ -33,56 +32,50 @@ export default function About() {
   const contentRef = useRef<HTMLDivElement>(null);
   const wordRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
-  useEffect(() => {
-    if (!sectionRef.current) return;
+  useGsapScrollContext(sectionRef, () => {
+    const aboutSection = sectionRef.current;
+    if (!aboutSection) return;
 
-    const ctx = gsap.context(() => {
-      const aboutSection = sectionRef.current;
-      if (!aboutSection) return;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    const words = wordRefs.current.filter(Boolean) as HTMLElement[];
+    if (words.length === 0) return;
 
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const words = wordRefs.current.filter(Boolean) as HTMLElement[];
-      if (words.length === 0) return;
+    if (prefersReducedMotion) {
+      words.forEach((el) => {
+        gsap.set(el, { backgroundSize: "200% 200%" });
+      });
+      return;
+    }
 
-      if (prefersReducedMotion) {
-        words.forEach((el) => {
-          gsap.set(el, { backgroundSize: "200% 200%" });
-        });
-      } else {
-        // One word reveals per segment of scroll for clarity and slowness
-        const scrollVh = 2200; // slightly slower overall scroll pacing
-        const timeline = gsap.timeline({ paused: true });
-        words.forEach((el, i) => {
-          timeline.to(
-            el,
-            {
-              backgroundSize: "200% 200%",
-              ease: "power1.inOut",
-              duration: 1.5,
-            },
-            i * 0.8
-          );
-        });
+    const scrollVh = 2200;
+    const timeline = gsap.timeline({ paused: true });
 
-        ScrollTrigger.create({
-          trigger: aboutSection,
-          start: "top top",
-          end: `+=${scrollVh}vh`,
-          scrub: 3,
-          pin: true,
-          pinSpacing: true,
-          animation: timeline,
-          invalidateOnRefresh: true,
-          id: "about-word-fill",
-        });
-      }
+    words.forEach((el, i) => {
+      timeline.to(
+        el,
+        {
+          backgroundSize: "200% 200%",
+          ease: "none",
+          duration: 1,
+        },
+        i / words.length
+      );
+    });
 
-      const handleResize = () => ScrollTrigger.refresh();
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
-    }, sectionRef);
-
-    return () => ctx.revert();
+    ScrollTrigger.create({
+      trigger: aboutSection,
+      start: "top top",
+      end: `+=${scrollVh}vh`,
+      scrub: true,
+      pin: true,
+      pinSpacing: true,
+      anticipatePin: 0,
+      invalidateOnRefresh: true,
+      animation: timeline,
+      id: "about-word-fill",
+    });
   }, []);
 
   return (
@@ -90,7 +83,6 @@ export default function About() {
       ref={sectionRef}
       className="relative min-h-screen bg-black text-white overflow-x-hidden"
     >
-      {/* Background pattern */}
       <div className="absolute inset-0 pointer-events-none z-0 opacity-60">
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -112,13 +104,11 @@ export default function About() {
         </svg>
       </div>
 
-      {/* Content centered in viewport (h-screen) */}
       <div className="relative w-full h-screen flex items-center justify-center">
         <div
           ref={contentRef}
           className="relative z-10 w-full max-w-full min-w-0 mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 text-center flex flex-col items-center justify-center"
         >
-          {/* Big opening quote */}
           <div
             className="absolute left-0 sm:left-2 md:left-4 lg:left-6 top-1/3 sm:top-1/2 -translate-y-1/2 text-white/15 sm:text-white/20 select-none pointer-events-none"
             style={{
@@ -132,7 +122,6 @@ export default function About() {
             &ldquo;
           </div>
 
-          {/* Big closing quote */}
           <div
             className="absolute right-0 sm:right-2 md:right-4 lg:right-6 top-2/3 sm:top-1/2 -translate-y-1/2 text-white/15 sm:text-white/20 select-none pointer-events-none"
             style={{
@@ -184,34 +173,19 @@ export default function About() {
 
       <style dangerouslySetInnerHTML={{ __html: `
         @media (max-width: 380px) {
-          .about-fill-text {
-            font-size: 22px !important;
-            line-height: 1.7 !important;
-          }
+          .about-fill-text { font-size: 22px !important; line-height: 1.7 !important; }
         }
         @media (min-width: 381px) and (max-width: 480px) {
-          .about-fill-text {
-            font-size: 26px !important;
-            line-height: 1.65 !important;
-          }
+          .about-fill-text { font-size: 26px !important; line-height: 1.65 !important; }
         }
         @media (min-width: 481px) and (max-width: 640px) {
-          .about-fill-text {
-            font-size: 30px !important;
-            line-height: 1.6 !important;
-          }
+          .about-fill-text { font-size: 30px !important; line-height: 1.6 !important; }
         }
         @media (min-width: 641px) and (max-width: 768px) {
-          .about-fill-text {
-            font-size: 32px !important;
-            line-height: 1.55 !important;
-          }
+          .about-fill-text { font-size: 32px !important; line-height: 1.55 !important; }
         }
         @media (min-width: 1000px) and (max-width: 1700px) {
-          .about-fill-text {
-            font-size: clamp(22px, 2.6vw, 38px) !important;
-            line-height: 1.5 !important;
-          }
+          .about-fill-text { font-size: clamp(22px, 2.6vw, 38px) !important; line-height: 1.5 !important; }
         }
       `}} />
     </section>

@@ -2,9 +2,14 @@
 
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import { splitText, SplitTextResult } from '../../utils/textSplit';
 import { scrambleText } from '../../utils/scrambleText';
+import { shouldReduceEffects, prefersReducedMotion } from '../../lib/motion-preference';
+import { getScrollEngineReady, refreshScrollTriggers } from '../../lib/scroll-engine';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface WindowWithResizeTimer extends Window {
   resizeTimer?: ReturnType<typeof setTimeout>;
@@ -199,7 +204,30 @@ export default function Hero() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const initializeAnimation = () => {
+    let cancelled = false;
+
+    const boot = () => {
+      if (cancelled) return;
+      initializeAnimation();
+      refreshScrollTriggers(true);
+    };
+
+    getScrollEngineReady().then(() => {
+      if (document.fonts?.ready) {
+        document.fonts.ready.then(() => {
+          setTimeout(boot, 100);
+        });
+      } else {
+        setTimeout(boot, 100);
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const initializeAnimation = () => {
       const state = stateRef.current;
       const backgroundTextItems = Array.from(textItemRefs.current.values());
       const textRows = Array.from(textRowRefs.current.values());
@@ -745,34 +773,36 @@ export default function Hero() {
         gsap.set(item, { opacity: 1 });
       });
 
-      // Parallax effect
+      // Parallax effect — desktop only; uses quickTo to avoid tween churn
       const initializeParallax = () => {
+        if (shouldReduceEffects()) return undefined;
+
         const backgroundElements = [
           ...Object.values(backgroundImagesRef.current).filter(Boolean),
           textBackgroundRef.current,
         ].filter(Boolean) as HTMLElement[];
 
-        // Exclude helloText from parallax to prevent blur
-        const helloText = helloTextRef.current;
-        if (helloText && backgroundElements.includes(helloText)) {
-          const index = backgroundElements.indexOf(helloText);
-          backgroundElements.splice(index, 1);
-        }
-
         const parallaxLayers = [0.02, 0.03, 0.04, 0.05];
-
-        backgroundElements.forEach((el, index) => {
-          (el as HTMLElement).dataset.parallaxSpeed = String(parallaxLayers[index % parallaxLayers.length]);
+        const quickMovers = backgroundElements.map((el, index) => {
+          (el as HTMLElement).dataset.parallaxSpeed = String(
+            parallaxLayers[index % parallaxLayers.length]
+          );
           gsap.set(el, {
             transformOrigin: 'center center',
             force3D: true,
           });
+          return gsap.quickTo(el, 'x', { duration: 0.8, ease: 'power2.out' });
         });
+        const quickY = backgroundElements.map((el) =>
+          gsap.quickTo(el, 'y', { duration: 0.8, ease: 'power2.out' })
+        );
 
         let lastParallaxTime = 0;
-        const throttleParallax = 20;
+        const throttleParallax = 32;
+        let heroActive = true;
 
         const handleMouseMove = (e: MouseEvent) => {
+          if (!heroActive) return;
           const now = Date.now();
           if (now - lastParallaxTime < throttleParallax) return;
           lastParallaxTime = now;
@@ -782,56 +812,76 @@ export default function Hero() {
           const offsetX = (e.clientX - centerX) / centerX;
           const offsetY = (e.clientY - centerY) / centerY;
 
-          backgroundElements.forEach((el) => {
+          backgroundElements.forEach((el, index) => {
             const speed = parseFloat((el as HTMLElement).dataset.parallaxSpeed || '0');
-            if ((el as HTMLElement).id && (el as HTMLElement).id.endsWith('-bg') && (el.style.opacity === '0')) {
+            if (
+              (el as HTMLElement).id &&
+              (el as HTMLElement).id.endsWith('-bg') &&
+              (el.style.opacity === '0')
+            ) {
               return;
             }
 
-            const moveX = offsetX * 100 * speed;
-            const moveY = offsetY * 50 * speed;
-
-            gsap.to(el, {
-              x: moveX,
-              y: moveY,
-              duration: 1.0,
-              ease: 'power2.out',
-              overwrite: 'auto',
-            });
+            quickMovers[index](offsetX * 100 * speed);
+            quickY[index](offsetY * 50 * speed);
           });
         };
 
         const handleMouseLeave = () => {
-          backgroundElements.forEach((el) => {
-            gsap.to(el, {
-              x: 0,
-              y: 0,
-              duration: 1.5,
-              ease: customEase,
-            });
+          backgroundElements.forEach((el, index) => {
+            quickMovers[index](0);
+            quickY[index](0);
           });
         };
 
-        document.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('mousemove', handleMouseMove, { passive: true });
         document.addEventListener('mouseleave', handleMouseLeave);
 
-        // Floating animation
+        const floatTweens: gsap.core.Tween[] = [];
         backgroundElements.forEach((el, index) => {
           const delay = index * 0.2;
           const floatAmount = 5 + (index % 3) * 2;
-          gsap.to(el, {
-            y: `+=${floatAmount}`,
-            duration: 3 + (index % 2),
-            ease: 'sine.inOut',
-          repeat: -1,
-            yoyo: true,
-            delay: delay,
-          });
+          floatTweens.push(
+            gsap.to(el, {
+              y: `+=${floatAmount}`,
+              duration: 3 + (index % 2),
+              ease: 'sine.inOut',
+              repeat: -1,
+              yoyo: true,
+              delay,
+            })
+          );
         });
+
+        const heroSection = containerRef.current;
+        if (heroSection) {
+          ScrollTrigger.create({
+            trigger: heroSection,
+            start: 'top bottom',
+            end: 'bottom top',
+            onEnter: () => {
+              heroActive = true;
+              floatTweens.forEach((t) => t.play());
+            },
+            onEnterBack: () => {
+              heroActive = true;
+              floatTweens.forEach((t) => t.play());
+            },
+            onLeave: () => {
+              heroActive = false;
+              floatTweens.forEach((t) => t.pause());
+            },
+            onLeaveBack: () => {
+              heroActive = false;
+              floatTweens.forEach((t) => t.pause());
+            },
+          });
+        }
 
         return () => {
           document.removeEventListener('mousemove', handleMouseMove);
           document.removeEventListener('mouseleave', handleMouseLeave);
+          floatTweens.forEach((t) => t.kill());
         };
       };
 
@@ -855,8 +905,14 @@ export default function Hero() {
         });
       });
 
-      // Scramble random text
+      // Scramble + ambient text motion — only while hero is on screen
+      let scrambleActive = true;
+      let scrambleTimer: ReturnType<typeof setTimeout> | null = null;
+      const textPulseTweens: gsap.core.Tween[] = [];
+
       const scrambleRandomText = () => {
+        if (!scrambleActive || prefersReducedMotion()) return;
+
         const randomIndex = Math.floor(Math.random() * backgroundTextItems.length);
         const randomItem = backgroundTextItems[randomIndex];
         const originalText = randomItem.dataset.text || '';
@@ -867,24 +923,63 @@ export default function Hero() {
           speed: 0.3,
         });
 
-        const delay = 0.5 + Math.random() * 2;
-        setTimeout(scrambleRandomText, delay * 1000);
+        const delay = 1.5 + Math.random() * 2.5;
+        scrambleTimer = setTimeout(scrambleRandomText, delay * 1000);
       };
 
-      setTimeout(scrambleRandomText, 1000);
+      if (!prefersReducedMotion()) {
+        scrambleTimer = setTimeout(scrambleRandomText, 1200);
 
-      // Animate background text items
-      backgroundTextItems.forEach((item, index) => {
-        const delay = index * 0.1;
-        gsap.to(item, {
-          opacity: 0.85,
-          duration: 2 + (index % 3),
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut',
-          delay: delay,
+        backgroundTextItems.forEach((item, index) => {
+          const delay = index * 0.1;
+          textPulseTweens.push(
+            gsap.to(item, {
+              opacity: 0.85,
+              duration: 2 + (index % 3),
+              repeat: -1,
+              yoyo: true,
+              ease: 'sine.inOut',
+              delay,
+            })
+          );
         });
-      });
+      }
+
+      const heroSection = containerRef.current;
+      if (heroSection) {
+        ScrollTrigger.create({
+          trigger: heroSection,
+          start: 'top bottom',
+          end: 'bottom top',
+          onEnter: () => {
+            scrambleActive = true;
+            textPulseTweens.forEach((t) => t.play());
+            if (!scrambleTimer && !prefersReducedMotion()) {
+              scrambleTimer = setTimeout(scrambleRandomText, 800);
+            }
+          },
+          onEnterBack: () => {
+            scrambleActive = true;
+            textPulseTweens.forEach((t) => t.play());
+          },
+          onLeave: () => {
+            scrambleActive = false;
+            textPulseTweens.forEach((t) => t.pause());
+            if (scrambleTimer) {
+              clearTimeout(scrambleTimer);
+              scrambleTimer = null;
+            }
+          },
+          onLeaveBack: () => {
+            scrambleActive = false;
+            textPulseTweens.forEach((t) => t.pause());
+            if (scrambleTimer) {
+              clearTimeout(scrambleTimer);
+              scrambleTimer = null;
+            }
+          },
+        });
+      }
 
       // Simple text - no animations, just ensure visibility
       const helloText = helloTextRef.current;
@@ -915,16 +1010,6 @@ export default function Hero() {
 
       initializeParallax();
     };
-
-    // Wait for fonts to load
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(() => {
-        setTimeout(initializeAnimation, 100);
-      });
-    } else {
-      setTimeout(initializeAnimation, 100);
-    }
-  }, []);
 
   return (
     <section className="relative h-screen overflow-hidden bg-black" ref={containerRef} style={{ position: 'relative', zIndex: 0, isolation: 'isolate' }}>

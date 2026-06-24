@@ -2,6 +2,12 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "./components/section/footer";
+import JsonLd from "./components/JsonLd";
+import {
+  createRootMetadata,
+  organizationJsonLd,
+  websiteJsonLd,
+} from "./lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,8 +20,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ThinkChains | Building the Future Through Innovation",
-  description: "ThinkChains is an award-winning technology company specialized in blockchain innovation, Web3 development, and strategic consulting. CEO portfolio, tech leader, entrepreneur.",
+  ...createRootMetadata(),
+  verification: {
+    // google: "your-google-verification-code",
+  },
 };
 
 export default function RootLayout({
@@ -24,12 +32,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white`}
       >
+        <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
         {children}
-        <Footer/>
+        <Footer />
       </body>
     </html>
   );

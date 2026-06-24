@@ -1,9 +1,10 @@
 "use client";
 
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
+import { useGsapScrollContext } from '../../hooks/useGsapScrollContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -73,101 +74,79 @@ const Work = () => {
   const horizontalRef = useRef<HTMLDivElement>(null);
   const backgroundTextRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-        // Horizontal scroll animation - optimized for user-friendly experience
-        if (horizontalRef.current) {
-          const cards = horizontalRef.current.children;
-          const numCards = cards.length;
-          // Get actual card width from first card (accounts for responsive widths: 85vw mobile, 88vw sm, 90vw md+)
-          const firstCard = cards[0] as HTMLElement;
-          const cardWidthVw = firstCard ? (firstCard.offsetWidth / window.innerWidth) * 100 : 90;
-          const viewportWidth = 100; // Viewport is 100vw
-          // Calculate exact horizontal movement to show last card without blank space
-          const totalWidth = numCards * cardWidthVw;
-          const horizontalMovement = totalWidth - viewportWidth;
-          
-          // Slower, more user-friendly scroll: 250vh hold + 100vh transition = 350vh per card
-          // This gives users more time to read each card before transitioning
-          const holdDistance = 250; // Viewport heights to hold on each card
-          const transitionDistance = 100; // Viewport heights for smooth transition
-          const scrollDistancePerCard = holdDistance + transitionDistance; // 350vh per card
-          const totalScrollDistance = (numCards - 1) * scrollDistancePerCard;
+  useGsapScrollContext(sectionRef, () => {
+    if (!horizontalRef.current || !sectionRef.current) return;
 
-          gsap.to(horizontalRef.current, {
-            x: `-${horizontalMovement}vw`,
+    const cards = horizontalRef.current.children;
+    const numCards = cards.length;
+    const firstCard = cards[0] as HTMLElement;
+    const cardWidthVw = firstCard
+      ? (firstCard.offsetWidth / window.innerWidth) * 100
+      : 90;
+    const totalWidth = numCards * cardWidthVw;
+    const horizontalMovement = totalWidth - 100;
+
+    const holdDistance = 250;
+    const transitionDistance = 100;
+    const scrollDistancePerCard = holdDistance + transitionDistance;
+    const totalScrollDistance = (numCards - 1) * scrollDistancePerCard;
+
+    const horizontalTween = gsap.to(horizontalRef.current, {
+      x: `-${horizontalMovement}vw`,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top top',
+        end: () => `+=${totalScrollDistance}vh`,
+        pin: true,
+        pinSpacing: true,
+        scrub: true,
+        anticipatePin: 0,
+        invalidateOnRefresh: true,
+        id: 'work-horizontal',
+      },
+    });
+
+    Array.from(cards).forEach((card) => {
+      gsap.fromTo(
+        card,
+        { opacity: 0, y: 100, scale: 0.9 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: card,
+            containerAnimation: horizontalTween,
+            start: 'left 85%',
+            end: 'left 35%',
+            scrub: true,
+          },
+        }
+      );
+    });
+
+    if (backgroundTextRef.current) {
+      const words = backgroundTextRef.current.querySelectorAll('.bg-word');
+      words.forEach((word) => {
+        gsap.fromTo(
+          word,
+          { opacity: 0.08, y: 0 },
+          {
+            y: -50,
+            opacity: 0.12,
             ease: 'none',
             scrollTrigger: {
               trigger: sectionRef.current,
               start: 'top top',
               end: () => `+=${totalScrollDistance}vh`,
-              pin: true,
-              pinSpacing: true,
-              scrub: 2, // Slower, more controlled scrub (was 4 - too fast)
-              anticipatePin: 1,
-              invalidateOnRefresh: true,
+              scrub: true,
             },
-          });
-
-        // Animate cards in on scroll - slower, more readable
-        Array.from(cards).forEach((card) => {
-          gsap.fromTo(
-            card,
-            {
-              opacity: 0,
-              y: 100,
-              scale: 0.9,
-            },
-            {
-              opacity: 1,
-              y: 0,
-              scale: 1,
-              duration: 1.2, // Slower card animation
-              ease: 'power3.out',
-              scrollTrigger: {
-                trigger: card,
-                start: 'left right',
-                end: 'left left',
-                scrub: 2, // Slower, more controlled (was 4)
-              },
-            }
-          );
-        });
-      }
-
-      // Background text parallax - slower, more subtle
-      if (backgroundTextRef.current && sectionRef.current) {
-        const words = backgroundTextRef.current.querySelectorAll('.bg-word');
-        const numCards = horizontalRef.current?.children.length || caseStudies.length;
-        const holdDistance = 250;
-        const transitionDistance = 100;
-        const scrollDistancePerCard = holdDistance + transitionDistance;
-        const totalScrollDistance = (numCards - 1) * scrollDistancePerCard;
-        
-        words.forEach((word) => {
-          gsap.fromTo(
-            word,
-            {
-              opacity: 0.08,
-              y: 0,
-            },
-            {
-              y: -50,
-              opacity: 0.12,
-              ease: 'none',
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top top',
-                end: () => `+=${totalScrollDistance}vh`,
-                scrub: 1.5, // Slower parallax
-              },
-            }
-          );
-        });
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
+          }
+        );
+      });
+    }
   }, []);
 
   return (
@@ -208,7 +187,7 @@ const Work = () => {
       {/* Dark Overlay Section */}
       <div className="relative z-20 bg-black">
         {/* Horizontal Scroll Container */}
-        <div className="sticky top-0 w-screen h-screen overflow-hidden">
+        <div className="relative top-0 w-screen h-screen overflow-hidden">
           <div
             ref={horizontalRef}
             className="flex h-full"

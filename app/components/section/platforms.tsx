@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any -- motion/scroll API typings are loose */
 import { useEffect, useRef } from "react";
 import { animate, scroll, cubicBezier } from "motion";
+import { getScrollEngineReady, refreshScrollTriggers } from "../../lib/scroll-engine";
 
 // Social media platform data
 const socialPlatforms = [
@@ -101,6 +102,11 @@ export default function ScrollMarquee() {
 
     if (prefersReducedMotion) return;
 
+    let cancelled = false;
+
+    getScrollEngineReady().then(() => {
+      if (cancelled) return;
+
     // Only run animation on desktop (md and up)
     if (window.innerWidth < 768) return;
 
@@ -197,6 +203,13 @@ export default function ScrollMarquee() {
         }
       );
     }
+
+      refreshScrollTriggers(true);
+    });
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (

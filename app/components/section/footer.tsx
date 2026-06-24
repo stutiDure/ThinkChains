@@ -1,7 +1,7 @@
-"use client";
+import Link from "next/link";
+import Logo from "../Logo";
 
 export default function Footer() {
-
   return (
     <footer className="relative bg-black text-white overflow-hidden">
       {/* Main Content */}
@@ -9,6 +9,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 md:gap-16 lg:gap-20 xl:gap-24">
           {/* Left Column - Contact */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
+            <Logo variant="dark" className="mb-4 sm:mb-6" imageClassName="h-12 w-auto sm:h-10 md:h-16" />
             <h3 className="text-white font-reckoner font-bold text-base sm:text-lg md:text-xl lg:text-2xl uppercase tracking-widest mb-4 sm:mb-6 md:mb-8 relative inline-block">
               <span className="relative z-10">Contact</span>
               <span className="absolute left-1/2 md:left-0 -translate-x-1/2 md:translate-x-0 -bottom-1 w-12 sm:w-16 h-0.5 bg-[#ffcc00]"></span>

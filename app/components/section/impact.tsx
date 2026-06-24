@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useRef, useState, type CSSProperties } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
+import { useGsapScrollContext } from "../../hooks/useGsapScrollContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -133,10 +134,8 @@ export default function ImpactNarratives() {
   const activeIndexRef = useRef(0);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  useEffect(() => {
+  useGsapScrollContext(sectionRef, () => {
     if (!sectionRef.current || !pinContainerRef.current) return;
-
-    const ctx = gsap.context(() => {
       const totalItems = IMPACT_ITEMS.length;
       const scrollPerItem = 380; // More vh per item = slower, smoother scroll
       const totalScroll = totalItems * scrollPerItem;
@@ -172,78 +171,67 @@ export default function ImpactNarratives() {
         end: `+=${totalScroll}vh`,
         pin: true,
         pinSpacing: true,
-        scrub: 2,
-        anticipatePin: 1,
+        scrub: true,
+        anticipatePin: 0,
         onUpdate: (self) => {
           const progress = self.progress;
           const newIndex = Math.min(
             Math.floor(progress * totalItems),
             totalItems - 1
           );
-          
-          // Only update if index actually changed (prevents unnecessary re-renders)
+
           if (newIndex !== activeIndexRef.current) {
             activeIndexRef.current = newIndex;
             setActiveIndex(newIndex);
+
+            categoryItemsRef.current.forEach((item, index) => {
+              if (!item) return;
+              const isActive = index === newIndex;
+              gsap.to(item, {
+                color: isActive ? "#facc15" : "#ffffff",
+                scale: isActive ? 1.05 : 1,
+                duration: 0.35,
+                ease: "power2.out",
+                overwrite: "auto",
+              });
+            });
           }
 
-          // Calculate progress within current item
           const itemProgress = (progress * totalItems) % 1;
-          
-          // Animate desktop category headings (mobile uses CSS transitions via inline styles)
-          categoryItemsRef.current.forEach((item, index) => {
-            if (!item) return;
-            
-            const isActive = index === newIndex;
-            const isNext = index === newIndex + 1;
-            const threshold = 0.8;
-            
-            // Desktop: color and transform-based
-            if (isActive) {
-              gsap.to(item, {
-                color: "#facc15",
-                scale: 1.05,
-                duration: 0.3,
-                ease: "power2.out",
-              });
-            } else if (isNext && itemProgress > threshold) {
-              const nextProgress = (itemProgress - threshold) / (1 - threshold);
-              gsap.to(item, {
-                color: `rgba(250, 204, 21, ${Math.min(nextProgress * 2, 1)})`,
-                scale: 1 + (nextProgress * 0.05),
-                duration: 0.15,
-                ease: "power2.out",
-              });
-            } else {
-              gsap.to(item, {
-                color: "#ffffff",
-                scale: 1,
-                duration: 0.3,
-                ease: "power2.out",
-              });
-            }
-          });
 
-          // Images and tags: instant show for active (so value/label appear with keyword), instant hide for others
           imagesRef.current.forEach((img, index) => {
             if (!img) return;
-            
+
             const isActive = index === newIndex;
             const isNext = index === newIndex + 1;
             const isPrev = index === newIndex - 1;
-            const itemTags = img.querySelectorAll('[data-tag]');
-            
+            const itemTags = img.querySelectorAll("[data-tag]");
+
             if (isActive) {
               gsap.set(img, { opacity: 1, scale: 1, zIndex: 2 });
               gsap.set(itemTags, { opacity: 1, scale: 1 });
             } else if (isNext && itemProgress > 0.7) {
               const fadeProgress = (itemProgress - 0.7) / 0.3;
-              gsap.set(img, { opacity: fadeProgress, scale: 0.95 + (fadeProgress * 0.05), zIndex: 1 });
-              gsap.set(itemTags, { opacity: fadeProgress, scale: 0.95 + (fadeProgress * 0.05) });
+              gsap.set(img, {
+                opacity: fadeProgress,
+                scale: 0.95 + fadeProgress * 0.05,
+                zIndex: 1,
+              });
+              gsap.set(itemTags, {
+                opacity: fadeProgress,
+                scale: 0.95 + fadeProgress * 0.05,
+              });
             } else if (isPrev && itemProgress < 0.3) {
-              const fadeProgress = 1 - (itemProgress / 0.3);
-              gsap.set(img, { opacity: fadeProgress, scale: 1 - (fadeProgress * 0.05), zIndex: 1 });
-              gsap.set(itemTags, { opacity: fadeProgress, scale: 1 - (fadeProgress * 0.05) });
+              const fadeProgress = 1 - itemProgress / 0.3;
+              gsap.set(img, {
+                opacity: fadeProgress,
+                scale: 1 - fadeProgress * 0.05,
+                zIndex: 1,
+              });
+              gsap.set(itemTags, {
+                opacity: fadeProgress,
+                scale: 1 - fadeProgress * 0.05,
+              });
             } else {
               gsap.set(img, { opacity: 0, scale: 0.95, zIndex: 1 });
               gsap.set(itemTags, { opacity: 0, scale: 0.95 });
@@ -251,10 +239,7 @@ export default function ImpactNarratives() {
           });
         },
       });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []); // Remove activeIndex from dependencies - only run once on mount
+  }, []);
 
   return (
     <section
